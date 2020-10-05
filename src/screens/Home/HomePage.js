@@ -6,6 +6,8 @@ import { getAllRestaurants } from '../../services/restaurants';
 import { FeedContainer } from './styled';
 import RestaurantCard from './RestaurantCard';
 
+import NavBar from '../../components/NavBar/NavBar'
+
 const HomePage = () => {
     const [feedArray, setFeedArray] = useState([])
 
@@ -37,6 +39,9 @@ const HomePage = () => {
                     return <RestaurantCard img={restau.logoUrl} name={restau.name} deliveryTime={restau.deliveryTime} shipping={restau.shipping}/>
                 })}
             </FeedContainer>
+            <div>
+              <NavBar section={'homepage'}/>
+            </div>
         </Container>
     )
 }
