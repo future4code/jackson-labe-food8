@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, IconButton, InputAdornment, makeStyles, OutlinedInput } from '@material-ui/core'
+import { Container, IconButton, InputAdornment, OutlinedInput } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
 import { useProtectedPage } from '../../hooks/useProtection'
 import { getAllRestaurants } from '../../services/restaurants';
@@ -15,12 +15,11 @@ const HomePage = () => {
 
     useEffect(() => {
         getAllRestaurants(setFeedArray)
-    })
+    }, [])
 
     return (
         <Container>
             <OutlinedInput
-                fullWidth
                 id="outlined-adornment-password"
                 label="Restaurante"
                 fullWidth
@@ -36,12 +35,10 @@ const HomePage = () => {
             />
             <FeedContainer>
                 {feedArray.map((restau) => {
-                    return <RestaurantCard img={restau.logoUrl} name={restau.name} deliveryTime={restau.deliveryTime} shipping={restau.shipping}/>
+                    return <RestaurantCard key={restau.id} img={restau.logoUrl} name={restau.name} deliveryTime={restau.deliveryTime} shipping={restau.shipping}/>
                 })}
             </FeedContainer>
-            <div>
-              <NavBar section={'homepage'}/>
-            </div>
+            <NavBar section={'homepage'}/>
         </Container>
     )
 }
