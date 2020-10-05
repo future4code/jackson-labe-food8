@@ -33,7 +33,7 @@ const RestaurantCard = (props) => {
 
     return ( 
         <Card className={classes.root}>
-            <CardMedia className={classes.media} image={img}/>
+            <CardMedia className={classes.media} image={img} alt="Logo do Restaurante"/>
             <CardContent className={classes.rectangle}>
                 <RestaurantName color="primary">
                     {name}
