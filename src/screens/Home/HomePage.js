@@ -1,12 +1,14 @@
 import React from 'react'
 import { useProtectedPage } from '../../hooks/useProtection'
 
+import NavBar from '../../components/NavBar/NavBar'
+
 const HomePage = () => {
     useProtectedPage()
 
     return (
         <div>
-            Feed Page
+            <NavBar section={'homepage'}/>
         </div>
     )
 }

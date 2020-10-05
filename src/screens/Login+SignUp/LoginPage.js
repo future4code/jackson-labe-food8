@@ -25,7 +25,6 @@ const LoginPage = () => {
         }
     }
 
-
     return (
         <Container>
            <Typography>entrar</Typography>
