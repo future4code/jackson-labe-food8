@@ -13,12 +13,10 @@ describe('Teste da página de login', () => {
 
     render(<LoginPage/>)
 
-    const elementoinput = screen.getByTestId('email')
-    const emailInput = elementoinput.children[0]
+    const emailInput = screen.getByTestId('email')
     expect(emailInput).toBeInTheDocument()
-    
-    const elementopassword = screen.getByTestId('password')
-    const passwordInput = elementopassword.children[0]
+
+    const passwordInput = screen.getByTestId('password')
     expect(passwordInput).toBeInTheDocument()
 
     const button = screen.getByText('Entrar')
@@ -32,5 +30,33 @@ describe('Teste da página de login', () => {
       email: 'email@email.com',
       password: '123'
     })
+  })
+})
+
+describe('Teste da home', () => {
+  test('Requisição do feed', async () => {
+    axios.get = jest.fn().mockResolvedValue({
+      restaurants: [{
+        id: 1,
+        description: 'descrição',
+        shipping: 6,
+        name: 'nome do restaurante',
+        address: 'rua do restaurante',
+        logoUrl: 'url',
+        category: 'categoria',
+        deliveryTime: 60
+      }]
+    })
+
+    render(<App/>)
+
+    const name = screen.getByText('nome do restaurante')
+    expect(name).toBeInTheDocument()
+    const deliveryTime = screen.getByText(60)
+    expect(deliveryTime).toBeInTheDocument()
+    const shipping = screen.getByText('Frete R$6,00')
+    expect(shipping).toBeInTheDocument()
+
+    expect(axios.get).toHaveBeenCalledWith('https://us-central1-missao-newton.cloudfunctions.net/futureEatsA/restaurants')
   })
 })

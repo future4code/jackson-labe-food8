@@ -22,6 +22,7 @@ const LoginPage = () => {
         element.reportValidity()
         if(isValid){
             login(form, history)
+            resetState()
         }
     }
 
@@ -40,7 +41,9 @@ const LoginPage = () => {
                     label="E-mail"
                     name="email"
                     autoComplete="email"
-                    data-testid="email"
+                    inputProps={{
+                        'data-testid': 'email'
+                    }}
                 />
                 <TextField
                     value={form.password}
@@ -54,7 +57,9 @@ const LoginPage = () => {
                     type="password"
                     id="password"
                     autoComplete="current-password"
-                    data-testid="password"
+                    inputProps={{
+                        'data-testid': 'password'
+                    }}
                 />
                 <Button
                     type="submit"
