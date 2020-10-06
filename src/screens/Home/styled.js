@@ -1,9 +1,11 @@
-import { Typography } from '@material-ui/core'
+import { Typography, FormControl } from '@material-ui/core'
 import styled from 'styled-components'
 
-export const FeedContainer = styled.section`
-    display: flex;
-    flex-direction: column;
+export const SearchInput = styled(FormControl)`
+    width: 328px;
+    height: 56px;
+    border-radius: 2px;
+    margin: 0 auto;
 `
 
 export const RestaurantName = styled(Typography)`
