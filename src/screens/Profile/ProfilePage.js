@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import NavBar from '../../components/NavBar/NavBar'
 import Header from '../../components/Header/Header'
 
@@ -7,17 +6,10 @@ import Header from '../../components/Header/Header'
 import { useProtectedPage } from '../../hooks/useProtection'
 import useRequestData from '../../hooks/useRequestData'
 
+//images:
+import editIcon from '../../assets/edit.svg'
 
-const ProfilePageContainer = styled.div`
-    padding-top: 44px;
-    font-family: 'Roboto', sans-serif;
-`
-
-const ProfileInfoContainer = styled.div`
-    font-size: 16px;
-    letter-spacing: -0.39px;
-    color: #000000;
-`
+import {ProfilePageContainer, ProfileInfoContainer, AddressInfoContainer, TextContainer, InfoTitle, Info, EditImg} from './styled'
 
 
 const ProfilePage = () => {
@@ -34,17 +26,23 @@ const ProfilePage = () => {
             <Header title='Meu perfil'/>
             {user &&
             <ProfileInfoContainer>
-                <div>{user.name}</div>
-                <div>{user.email}</div>
-                <div>{user.cpf}</div>
+                <TextContainer>
+                    <Info>{user.name} </Info>
+                    <Info>{user.email}</Info>
+                    <Info>{user.cpf}</Info>
+                </TextContainer>
+                <EditImg src={editIcon}/>
             </ProfileInfoContainer>
             }
 
             {user &&
-            <div>
-                <p>Endereço cadastrado</p>
-                <p>{user.address}</p>
-            </div>
+            <AddressInfoContainer>
+                <TextContainer>
+                    <InfoTitle>Endereço cadastrado</InfoTitle>
+                    <Info>{user.address}</Info>
+                </TextContainer>
+                <EditImg src={editIcon}/>
+            </AddressInfoContainer>
             }
 
             <div>Histórico de pedidos</div>
