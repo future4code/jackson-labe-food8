@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Container, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import RestaurantsList from '../../components/RestaurantsList/RestaurantsList';
+import { SearchInput } from './styled'
+import Header from '../../components/Header/Header';
 import { useProtectedPage } from '../../hooks/useProtection';
 import { getAllRestaurants } from '../../services/restaurants';
-import { SearchInput } from './styled'
-import RestaurantsList from '../../components/RestaurantsList/RestaurantsList';
+
 
 const SearchPage = () => {
     const [searchValue, setSearchValue] = useState('')
@@ -31,6 +33,7 @@ const SearchPage = () => {
 
     return ( 
         <Container>
+            <Header back title={"Busca"}/>
             <SearchInput variant="outlined">
                 <InputLabel htmlFor="component-outlined" disableAnimation>Restaurante</InputLabel>
                 <OutlinedInput id="component-outlined" startAdornment={
@@ -43,6 +46,7 @@ const SearchPage = () => {
                     onChange={onChangeSearch}
                     label="Restaurante"
                     value={searchValue}
+                    autoFocus
                 />
             </SearchInput>
             <Container>

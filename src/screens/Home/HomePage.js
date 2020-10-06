@@ -8,6 +8,7 @@ import NavBar from '../../components/NavBar/NavBar'
 import { goToSearch } from '../../routes/Coordinator';
 import { useHistory } from 'react-router-dom';
 import RestaurantsList from '../../components/RestaurantsList/RestaurantsList';
+import Header from '../../components/Header/Header';
 
 const HomePage = () => {
     const [feedArray, setFeedArray] = useState([])
@@ -24,6 +25,7 @@ const HomePage = () => {
     return (
         <div>
             <Container>
+            <Header title={"FutureEats"}/>
             <SearchInput variant="outlined">
                 <InputLabel htmlFor="component-outlined" disableAnimation>Restaurante</InputLabel>
                 <OutlinedInput id="component-outlined" startAdornment={
