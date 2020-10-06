@@ -1,14 +1,16 @@
 import React from 'react';
 import { Box, Card, CardContent, CardMedia, makeStyles } from '@material-ui/core';
 import { RestaurantName, RestaurantCardInfo } from './styled'
+import { useHistory } from 'react-router-dom';
+import {goToRestaurant} from '../../routes/Coordinator'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: '8px',
     marginLeft: '16px',
     marginRight: '16px',
-    maxWidth: '328px',
-    maxHeight: '188px',
+    width: '328px',
+    height: '188px',
   },
   media: {
     height: '120px',
@@ -27,12 +29,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RestaurantCard = (props) => {
-    const { img, name, deliveryTime, shipping } = props
+    const { id, img, name, deliveryTime, shipping } = props
     const classes = useStyles()
+    const history = useHistory()
 
+    const onClickCard = () => {
+      goToRestaurant(history, id)
+    }
 
     return ( 
-        <Card className={classes.root}>
+        <Card className={classes.root} onClick={onClickCard}>
             <CardMedia className={classes.media} image={img} alt="Logo do Restaurante"/>
             <CardContent className={classes.rectangle}>
                 <RestaurantName color="primary">
