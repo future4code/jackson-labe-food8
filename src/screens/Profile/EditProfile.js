@@ -1,11 +1,13 @@
 import React from 'react';
-import NavBar from '../../components/NavBar/NavBar'
-import Header from '../../components/Header/Header'
+import { useProtectedPage } from '../../hooks/useProtection'
+
 
 const EditProfile = (props) => {
+
+    useProtectedPage()
+    
     return ( 
         <div>
-        <Header title='Editar'/>
         </div>
      );
 }

@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const ProfilePageContainer = styled.div`
-    padding-top: 44px;
     font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
