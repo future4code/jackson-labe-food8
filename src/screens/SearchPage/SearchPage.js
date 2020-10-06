@@ -8,25 +8,25 @@ import RestaurantsList from '../../components/RestaurantsList/RestaurantsList';
 
 const SearchPage = () => {
     const [searchValue, setSearchValue] = useState('')
+    const [feedArray, setFeedArray] = useState([])
     const [restaurantArray, setRestaurantArray] = useState([])
 
     useProtectedPage()
 
     useEffect(() => {
-        getAllRestaurants(setRestaurantArray)
+        getAllRestaurants(setFeedArray)
     }, [])
 
     const onChangeSearch = (event) => {
         setSearchValue(event.target.value) 
         getFilteredArray()
-        console.log(restaurantArray)
     }
 
     const getFilteredArray = () => {
-        const filteredArray = restaurantArray.filter((rest) => {
+        const restaurantArray = feedArray.filter((rest) => {
             return rest.name.toLowerCase().match(searchValue.toLowerCase())
         })
-        setRestaurantArray(filteredArray)
+        setRestaurantArray(restaurantArray)
     }
 
     return ( 
