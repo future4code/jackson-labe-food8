@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core'
+import { IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
 import { useProtectedPage } from '../../hooks/useProtection'
 import { getAllRestaurants } from '../../services/restaurants';
@@ -8,6 +8,8 @@ import NavBar from '../../components/NavBar/NavBar'
 import { goToSearch } from '../../routes/Coordinator';
 import { useHistory } from 'react-router-dom';
 import RestaurantsList from '../../components/RestaurantsList/RestaurantsList';
+import Header from '../../components/Header/Header';
+import CategorySlider from './CategorySlider'
 
 const HomePage = () => {
     const [feedArray, setFeedArray] = useState([])
@@ -20,13 +22,14 @@ const HomePage = () => {
     }, [])
     
     
-
+    
     return (
         <div>
-            <Container>
+            <Header title={"FutureEats"}/>
             <SearchInput variant="outlined">
                 <InputLabel htmlFor="component-outlined" disableAnimation>Restaurante</InputLabel>
-                <OutlinedInput id="component-outlined" startAdornment={
+                <OutlinedInput id="component-outlined" 
+                    startAdornment={
                         <InputAdornment position='start'>
                         <IconButton>
                             <SearchIcon/>
@@ -34,12 +37,12 @@ const HomePage = () => {
                         </InputAdornment>
                     }
                     onClick={() => goToSearch(history)}
-                />
+                    />
             </SearchInput>
-                <RestaurantsList array={feedArray}/>
-            </Container>
+            <CategorySlider array={feedArray}/>
+            <RestaurantsList array={feedArray}/>
             <NavBar section={'homepage'}/>
-            </div>
+        </div>
     )
 }
 
