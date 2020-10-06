@@ -1,12 +1,10 @@
-import React from 'react'
-import { SignUpForm } from './SignUpForm'
-import { Container, Typography, Button, Card } from '@material-ui/core'
-import { GoBackContainer } from './styled'
+import React, { useState } from 'react'
+import { AddressForm } from './AddressForm'
+import { Container, Typography, TextField, Button, Card } from '@material-ui/core'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { primaryColor } from '../../constants/colors'
 import { UpperContainer } from './styled'
-import { useUnprotectedPage } from '../../hooks/useProtection'
 
 const MainTheme = createMuiTheme({
     palette: {
@@ -19,25 +17,22 @@ const MainTheme = createMuiTheme({
     }
   });
 
-
-
-
-const SignUpPage = () => {
-  useUnprotectedPage()
+const AddressPage = () => {
     return (
         <Container>
             <UpperContainer>
                 <h1>Logo</h1>
-            <Typography>Cadastrar</Typography>
+            <Typography>Meu Endereço</Typography>
             </UpperContainer>
             <Container>
             <MuiThemeProvider theme={MainTheme}>
-                <SignUpForm />
+
+                <AddressForm />
             </MuiThemeProvider>
-        </Container>
+            </Container>
         </Container>
 
     )
 }
 
-export default SignUpPage
+export default AddressPage

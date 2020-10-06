@@ -6,6 +6,8 @@ export const InputContainer = styled.div`
   max-width: 100vw;
   align-items: center;
 `
-export const GoBackContainer = styled.section`
-
+export const UpperContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `

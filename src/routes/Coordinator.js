@@ -26,3 +26,7 @@ export const goToLogin = (history) => {
     history.goBack()
   }
   
+  export const goToAddress = (history) => {
+    history.push(`/address`)
+  } 
+  
