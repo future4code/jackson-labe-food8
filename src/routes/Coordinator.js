@@ -22,6 +22,10 @@ export const goToLogin = (history) => {
     history.push(`/profile`)
   }
 
+  export const goToEditProfile = (history) => {
+    history.push(`/profile/edit-profile`)
+  }
+
   export const goBack = (history) => {
     history.goBack()
   }
