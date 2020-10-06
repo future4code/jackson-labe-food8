@@ -8,6 +8,7 @@ import RestaurantPage from '../screens/Restaurant/RestaurantPage'
 import ShoppingCartPage from '../screens/ShoppingCart/ShoppingCartPage'
 import ProfilePage from '../screens/Profile/ProfilePage'
 
+import Header from '../components/Header/Header'
 const Router = () => {
 
     return (
