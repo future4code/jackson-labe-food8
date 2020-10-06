@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { baseUrl } from '../constants/urls'
-import { goToFeed } from '../routes/Coordinator'
+import { goToFeed, goToProfile } from '../routes/Coordinator'
 
 export const login = (body, history) => {
     axios.post(`${baseUrl}login`, body)
@@ -14,3 +14,19 @@ export const login = (body, history) => {
     })
 }
 
+export const updateProfile = (body, history) => {
+
+    axios
+    .put(`${baseUrl}profile`, body, {
+        headers: {
+            auth: localStorage.getItem('token')
+        }
+    })
+
+    .then((response) => {
+        goToProfile(history)
+    })
+    .catch( (error) => {
+        alert('Falha no login, tente novamente!')
+    })
+}

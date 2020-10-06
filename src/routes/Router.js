@@ -8,6 +8,7 @@ import RestaurantPage from '../screens/Restaurant/RestaurantPage'
 import ShoppingCartPage from '../screens/ShoppingCart/ShoppingCartPage'
 import ProfilePage from '../screens/Profile/ProfilePage'
 import EditProfile from '../screens/Profile/EditProfile'
+import EditAddress from '../screens/Profile/EditAddress'
 
 import Header from '../components/Header/Header'
 const Router = () => {
@@ -36,6 +37,10 @@ const Router = () => {
             <Route exact path='/profile/edit-profile'>
                 <Header title="Editar" back={true}/>
                 <EditProfile/> 
+            </Route>
+            <Route exact path='/profile/edit-address'>
+                <Header title="Endereço" back={true}/>
+                <EditAddress/> 
             </Route>
             <Route>
                 <div>erro 404</div> 

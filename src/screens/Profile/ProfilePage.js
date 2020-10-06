@@ -2,8 +2,7 @@ import React from 'react'
 import NavBar from '../../components/NavBar/NavBar'
 
 import { useHistory } from 'react-router-dom'
-import {goToEditProfile} from '../../routes/Coordinator'
-
+import {goToEditProfile, goToEditAddress} from '../../routes/Coordinator'
 
 // hooks:
 import { useProtectedPage } from '../../hooks/useProtection'
@@ -13,7 +12,7 @@ import useRequestData from '../../hooks/useRequestData'
 import editIcon from '../../assets/edit.svg'
 
 // estilo:
-import {ProfilePageContainer, ProfileInfoContainer, AddressInfoContainer, TextContainer, InfoTitle, Info, EditImg} from './styled'
+import {PageContainer, ProfileInfoContainer, AddressInfoContainer, TextContainer, InfoTitle, Info, EditImg} from './styled'
 
 
 const ProfilePage = () => {
@@ -27,33 +26,50 @@ const ProfilePage = () => {
 
     const orders = useRequestData({}, 'orders/history/')
 
+    const editProfile = () => {
+        goToEditProfile(history)
+        localStorage.setItem('name', user.name)
+        localStorage.setItem('email', user.email)
+        localStorage.setItem('cpf', user.cpf)
+    }
+
+    const editAddress = () => {
+        goToEditAddress(history)
+    }
+
+    if (!user) {
+        return (
+            <div></div>
+        )
+    }
+        
     return (
-        <ProfilePageContainer>
-            {user &&
+        <PageContainer>
+
             <ProfileInfoContainer>
                 <TextContainer>
                     <Info>{user.name} </Info>
                     <Info>{user.email}</Info>
                     <Info>{user.cpf}</Info>
                 </TextContainer>
-                <EditImg 
+                    <EditImg 
                     src={editIcon}
-                    onClick ={() => goToEditProfile(history)}
-                />
+                    onClick = {() => editProfile()}
+                    />
             </ProfileInfoContainer>
-            }
 
-            {user &&
             <AddressInfoContainer>
-                <TextContainer>
+                 <TextContainer>
                     <InfoTitle>Endereço cadastrado</InfoTitle>
                     <Info>{user.address}</Info>
                 </TextContainer>
-                <EditImg src={editIcon}/>
+                    <EditImg 
+                    src={editIcon}
+                    onClick = {() => editAddress()}
+                    />
             </AddressInfoContainer>
-            }
 
-            <div>Histórico de pedidos</div>
+            {/* <div>Histórico de pedidos</div>
 
             {orders &&
 
@@ -66,10 +82,11 @@ const ProfilePage = () => {
             </div>:
             <div>Você não realizou nenhum pedido</div>
 
-            }
+            } */}
             
             <NavBar section={'profile'}/>
-        </ProfilePageContainer>
+            
+        </PageContainer>
     )
 }
 
