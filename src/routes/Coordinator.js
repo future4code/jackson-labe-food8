@@ -28,3 +28,12 @@ export const goToProfile = (history) => {
 export const goBack = (history) => {
   history.goBack()
 }
+
+export const goToEditProfile = (history) => {
+  history.push(`/profile/edit-profile`)
+}
+
+export const goBack = (history) => {
+  history.goBack()
+}
+  

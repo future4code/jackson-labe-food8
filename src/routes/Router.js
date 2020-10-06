@@ -8,7 +8,9 @@ import RestaurantPage from '../screens/Restaurant/RestaurantPage'
 import ShoppingCartPage from '../screens/ShoppingCart/ShoppingCartPage'
 import ProfilePage from '../screens/Profile/ProfilePage'
 import SearchPage from '../screens/SearchPage/SearchPage'
+import EditProfile from '../screens/Profile/EditProfile'
 
+import Header from '../components/Header/Header'
 const Router = () => {
 
     return (
@@ -32,7 +34,12 @@ const Router = () => {
                 <ShoppingCartPage/> 
             </Route>
             <Route exact path='/profile'>
+                <Header title="Meu perfil"/>
                 <ProfilePage/> 
+            </Route>
+            <Route exact path='/profile/edit-profile'>
+                <Header title="Editar" back={true}/>
+                <EditProfile/> 
             </Route>
             <Route>
                 <div>erro 404</div> 
