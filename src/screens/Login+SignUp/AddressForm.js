@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Container, Typography, TextField, Button, InputAdornment, IconButton } from '@material-ui/core'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import { address } from '../../services/user';
+import { addAddress } from '../../services/user';
 import useForm from '../../hooks/useForm'
 import { useHistory } from 'react-router-dom'
 import { goToSignUp } from '../../routes/Coordinator'
@@ -26,7 +26,7 @@ export const AddressForm = () => {
         const isValid = element.checkValidity()
         element.reportValidity()
         if(isValid){
-            address(form, history)
+          addAddress(form, history)
             resetState()
         }
     }

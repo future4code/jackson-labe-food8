@@ -1,8 +1,6 @@
 import axios from 'axios'
 import { baseUrl } from '../constants/urls'
-import { goToFeed } from '../routes/Coordinator'
-import { goToLogin } from '../routes/Coordinator'
-
+import { goToFeed, goToProfile, goToLogin } from '../routes/Coordinator'
 
 export const login = (body, history) => {
     axios.post(`${baseUrl}login`, body)
@@ -28,7 +26,7 @@ export const signup = (body, history) => {
     })
 }
 
-export const address = (body, history) => {
+export const addAddress = (body, history) => {
     axios.put(`${baseUrl}/address`, body, {
       headers: {
         Authorization: localStorage.getItem('token')
@@ -41,7 +39,23 @@ export const address = (body, history) => {
     ).catch((error) => {
         console.log(error)
         alert('Não foi possível adicionar o seu endereço, tente novamente')
-  
       }
     )
   }
+
+  export const updateProfile = (body, history) => {
+
+    axios
+    .put(`${baseUrl}profile`, body, {
+        headers: {
+            auth: localStorage.getItem('token')
+        }
+    })
+
+    .then((response) => {
+        goToProfile(history)
+    })
+    .catch( (error) => {
+        alert('Falha no login, tente novamente!')
+    })
+}
