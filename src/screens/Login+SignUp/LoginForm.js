@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { login } from '../../services/user'
 import { useHistory } from 'react-router-dom'
-import { Container, Typography, TextField, Button } from '@material-ui/core'
+import { Container, Typography, TextField, Button, InputAdornment, IconButton } from '@material-ui/core'
 import useForm from '../../hooks/useForm'
 import { InputContainer } from './styled'
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 export const LoginForm = () => {
 
@@ -38,6 +39,10 @@ export const LoginForm = () => {
                     id="email"
                     label="E-mail"
                     name="email"
+                    InputLabelProps={{
+                        shrink: true,
+                      }}
+                    placeholder="email@email.com"
                     autoComplete="email"
                     inputProps={{
                         'data-testid': 'email'
@@ -52,13 +57,26 @@ export const LoginForm = () => {
                     fullWidth
                     name="password"
                     label="Senha"
+                    InputLabelProps={{
+                        shrink: true,
+                      }}
+                    placeholder="Mínimo 6 caracteres"
                     type="password"
                     id="password"
                     autoComplete="current-password"
                     inputProps={{
                         'data-testid': 'password'
                     }}
-                />
+                    InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <VisibilityOffIcon
+                            edge="end"
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
                 <Button
                     type="submit"
                     variant="contained"

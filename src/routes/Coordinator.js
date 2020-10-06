@@ -2,35 +2,45 @@ export const goToLogin = (history) => {
     history.push('/login')
   }
   
-  export const goToSignUp = (history) => {
-    history.push('/signup')
-  }
-  
-  export const goToFeed = (history) => {
-    history.push('/')
-  }
-  
-  export const goToRestaurant = (history, id) => {
-    history.push(`/restaurants/${id}`)
-  }
+export const goToSignUp = (history) => {
+  history.push('/signup')
+}
 
-  export const goToShoppingCart = (history) => {
-    history.push(`/shoppingcart`)
-  }
+export const goToFeed = (history) => {
+  history.push('/')
+}
+export const goToSearch = (history) => {
+  history.push('/busca')
+}
 
-  export const goToProfile = (history) => {
-    history.push(`/profile`)
-  }
+export const goToRestaurant = (history, id) => {
+  history.push(`/restaurants/${id}`)
+}
 
-  export const goToEditProfile = (history) => {
-    history.push(`/profile/edit-profile`)
-  }
 
-  export const goToEditAddress = (history) => {
-    history.push(`/profile/edit-address`)
-  }
-
-  export const goBack = (history) => {
+export const goBack = (history) => {
     history.goBack()
-  }
+}
   
+export const goToAddress = (history) => {
+    history.push(`/address`)
+} 
+  
+export const goToShoppingCart = (history) => {
+  history.push(`/shoppingcart`)
+}
+
+
+// -- USER SECTION -- 
+
+export const goToProfile = (history) => {
+  history.push(`/profile`)
+}
+
+export const goToEditProfile = (history) => {
+  history.push(`/profile/edit-profile`)
+}
+
+export const goToEditAddress = (history) => {
+  history.push(`/profile/edit-address`)
+}

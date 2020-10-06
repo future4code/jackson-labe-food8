@@ -1,9 +1,14 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom'
 
+import {goToProfile} from '../../routes/Coordinator'
+
 // Hooks:
 import { useProtectedPage } from '../../hooks/useProtection'
 import useForm from '../../hooks/useForm'
+
+// Services:
+import { addAddress } from '../../services/user';
 
 // Style:
 import {PageContainer} from './styled'
@@ -54,14 +59,13 @@ const EditAddress = () => {
                 />
             </InputContainer>
             <InputContainer>
-                <Label for={'apartment'}>Complemento*</Label>
+                <Label for={'apartment'}>Complemento</Label>
                 <Input
                 id={'apartment'}
                 value={form.apartment}
                 onChange={handleInputChange}
                 name={'apartment'}
                 placeholder={'Apto. / Bloco'}
-                required
                 />
             </InputContainer>
             <InputContainer>
