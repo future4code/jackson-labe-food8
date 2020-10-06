@@ -49,3 +49,5 @@ export const InfoTitle = styled.div`
     margin-bottom: 8px;
 `
 
+
+

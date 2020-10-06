@@ -13,6 +13,7 @@ import editIcon from '../../assets/edit.svg'
 
 // estilo:
 import {PageContainer, ProfileInfoContainer, AddressInfoContainer, TextContainer, InfoTitle, Info, EditImg} from './styled'
+import {SectionTitle} from '../../assets/Styled/styled-text'
 
 
 const ProfilePage = () => {
@@ -69,9 +70,11 @@ const ProfilePage = () => {
                     />
             </AddressInfoContainer>
 
-            {/* <div>Histórico de pedidos</div>
+            <SectionTitle>
+            Histórico de pedidos
+            </SectionTitle>
 
-            {orders &&
+            {/* {orders &&
 
             (orders.length > 0)?
             <div>{orders.map( (order) => {
