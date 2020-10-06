@@ -32,7 +32,7 @@ const SearchPage = () => {
     }
 
     return ( 
-        <Container>
+        <div>
             <Header back title={"Busca"}/>
             <SearchInput variant="outlined">
                 <InputLabel htmlFor="component-outlined" disableAnimation>Restaurante</InputLabel>
@@ -49,10 +49,8 @@ const SearchPage = () => {
                     autoFocus
                 />
             </SearchInput>
-            <Container>
-                {searchValue === '' ? <p>Busque por nome de restaurante</p> : (searchValue !== '' && restaurantArray.length > 0 ? <RestaurantsList array={restaurantArray}/> : <p>Não encontramos :(</p>) }
-            </Container>            
-        </Container>
+            {searchValue === '' ? <p>Busque por nome de restaurante</p> : (searchValue !== '' && restaurantArray.length > 0 ? <RestaurantsList array={restaurantArray}/> : <p>Não encontramos :(</p>) }
+        </div>
      );
 }
  
