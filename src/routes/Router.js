@@ -7,6 +7,7 @@ import HomePage from '../screens/Home/HomePage'
 import RestaurantPage from '../screens/Restaurant/RestaurantPage'
 import ShoppingCartPage from '../screens/ShoppingCart/ShoppingCartPage'
 import ProfilePage from '../screens/Profile/ProfilePage'
+import SearchPage from '../screens/SearchPage/SearchPage'
 import EditProfile from '../screens/Profile/EditProfile'
 
 import Header from '../components/Header/Header'
@@ -16,6 +17,9 @@ const Router = () => {
         <Switch>
             <Route exact path='/'>
                 <HomePage/> 
+            </Route>
+            <Route exact path='/busca'>
+                <SearchPage/> 
             </Route>
             <Route exact path='/login'>
                 <LoginPage/> 

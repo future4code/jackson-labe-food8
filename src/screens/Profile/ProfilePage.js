@@ -2,7 +2,7 @@ import React from 'react'
 import NavBar from '../../components/NavBar/NavBar'
 
 import { useHistory } from 'react-router-dom'
-import {goToEditProfile} from '../../routes/Coordinator'
+import { goToEditProfile } from '../../routes/Coordinator'
 
 
 // hooks:
