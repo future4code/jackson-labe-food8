@@ -46,7 +46,7 @@ const RestaurantCard = (props) => {
                 </RestaurantName>
                 <RestaurantCardInfo component="div" variant="body2">
                     <Box className={classes.deliveryTime}>
-                        {deliveryTime} - {deliveryTime - 10} min
+                        {deliveryTime} - {deliveryTime + 10} min
                     </Box>
                     <Box className={classes.freight}>
                         Frete R${shipping},00

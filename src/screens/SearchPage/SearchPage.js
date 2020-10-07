@@ -19,16 +19,15 @@ const SearchPage = () => {
         getAllRestaurants(setFeedArray)
     }, [])
 
-    const onChangeSearch = (event) => {
-        setSearchValue(event.target.value) 
-        getFilteredArray()
-    }
-
-    const getFilteredArray = () => {
+    useEffect(() => {
         const restaurantArray = feedArray.filter((rest) => {
             return rest.name.toLowerCase().match(searchValue.toLowerCase())
         })
         setRestaurantArray(restaurantArray)
+    }, [searchValue])
+
+    const onChangeSearch = (event) => {
+        setSearchValue(event.target.value)
     }
 
     return ( 
