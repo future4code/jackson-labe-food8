@@ -3,14 +3,25 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import { baseUrl } from '../../constants/urls';
 import { useProtectedPage } from '../../hooks/useProtection';
-import { goToLogin } from '../../routes/Coordinator';
+import SimpleModal from './styled';
+
 
 const RestaurantPage = () => {
     const [restaurant, setRestaurant] = useState({});
     const [menu, setMenu] = useState([]);
-    const [orederItems, setOrderItems] = useState([]);
+    const [order, setOrder] = useState({});
     const token = localStorage.getItem("token");
-    const pathParams = useParams()
+    const [categories, setCategories] = useState([]);
+    const [filteredCategories, setFilteredCategories] = useState([]);
+    const [visibilityCard, setVisibilityCard] = useState(false);
+    const [nameButton, setNameButton] = useState(true);
+    const [orderEnd, setOrderEnd] = useState([]);
+    const [allDetails, setAllDetails] = useState([]);
+    const pathParams = useParams();
+
+
+    const buttonName = nameButton ? "Adicionar" : "Remover";
+
 
     const requestGetDetail = (id) =>{
         const headers = {
@@ -21,49 +32,100 @@ const RestaurantPage = () => {
         axios
         .get(`${baseUrl}restaurants/${id}`, headers)
         .then((response) =>{
-            setMenu(response.data.restaurant.products)
+            setMenu(response.data.restaurant.products);
+            setRestaurant(response.data.restaurant);
         })
         .catch((error) =>{
             alert(error.message)
         })
+    };
+
+    const onlyUnique = (value, index, self) =>{
+        return self.indexOf(value) === index;
+    };
+
+    const getCategories = () => {
+      const filteredArray = categories.filter(onlyUnique)
+      setFilteredCategories(filteredArray)
+    };
+
+    const clickButtonadd = (item) =>{
+        setVisibilityCard(!visibilityCard);
+        setNameButton(!nameButton);
+        setAllDetails(item);
+    };
+
+    const clickButtonCard = (qtd) =>{
+        setVisibilityCard(!visibilityCard);
+        setOrder({...allDetails.id, ...qtd});
+        let arrayId = [...orderEnd, order]
+        setOrderEnd(arrayId)
+    };
+
+    const clickButtonRm = (item) =>{
+        setNameButton(!nameButton);
+        orderEnd.splice(orderEnd.indexOf(item.id), 1)
+    };
+
+    const clickCart = (all, selection) =>{
+        
     }
 
-    const mapMenu =
-        menu.map((category) =>{
-            return category.category
-        });
+    const fnButton = nameButton ? clickButtonadd : clickButtonRm
+
+    useEffect(()=>{
+      getCategories()
+    }, [categories]);
 
     useProtectedPage()
 
     useEffect(() =>{
-        requestGetDetail(pathParams.id)
-    }, [requestGetDetail])
+        requestGetDetail(pathParams.id);
+    }, []);
+
+    useEffect(() =>{
+        const mapMenu =
+        menu.map((category) =>{   
+            return category.category
+        });
+        setCategories([...mapMenu]);
+    }, [menu]);
+
 
     return (
         <div>
-            {restaurant.logoUrl}
-            {restaurant.name}
-            {restaurant.category}
-            {restaurant.deliveryTime}
-            {restaurant.shipping}
-            {restaurant.address}
-            {menu.filter((it) =>{
-                return it.category === mapMenu
-            })
-            .map((info) =>{
-                return(
-                    <div>
-                        {info.category}
+            <img src={restaurant.photoUrl}/>
+            <p>{restaurant.name}</p>
+            <p>{restaurant.category}</p>
+            <p>{[restaurant.deliveryTime - 10]} - {restaurant.deliveryTime} min</p>
+            <p>Frete R${restaurant.shipping},00</p>
+            <p>{restaurant.address}</p>
+            {filteredCategories.map((item) =>{
+               return (
+                   <div>
+                        <div>{item}</div>
                         <hr/>
-                        {info.photoUrl}
-                        {info.name}
-                        {info.description}
-                        {info.price} 
-                        <button>Adicionar</button>
-                    </div>
-                )
+                        <div>
+                            {menu.map((info) =>{
+                                if(info.category === item){
+                                    return(
+                                        <div>
+                                            <img src={info.photoUrl}/>
+                                            <p>{info.name}</p>
+                                            <p>{info.description}</p>
+                                            <div>{info.price} </div>
+                                            <button onClick={()=>{fnButton(info)}}>{buttonName}</button>
+                                        </div>
+                                    )
+                                }
+                            })}
+                        </div>
+                   </div>
+               )
+
             })
             }
+            <SimpleModal click={clickButtonCard} state={visibilityCard}/>
         </div>
     )
 }

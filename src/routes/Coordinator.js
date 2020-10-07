@@ -17,8 +17,8 @@ export const goToRestaurant = (history, id) => {
   history.push(`/restaurants/${id}`)
 }
 
-export const goToShoppingCart = (history) => {
-  history.push(`/shoppingcart`)
+export const goToShoppingCart = (history, state) => {
+  history.push(`/shoppingcart/${state}`)
 }
 
 export const goToProfile = (history) => {
