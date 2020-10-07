@@ -3,6 +3,8 @@ import { Box, Card, CardContent, CardMedia, makeStyles } from '@material-ui/core
 import { RestaurantName, RestaurantCardInfo } from './styled'
 import { useHistory } from 'react-router-dom';
 import {goToRestaurant} from '../../routes/Coordinator'
+import { GrayText, GreenTitle } from '../../assets/Styled/styled-text'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,16 +43,16 @@ const RestaurantCard = (props) => {
         <Card className={classes.root} onClick={onClickCard}>
             <CardMedia className={classes.media} image={img} alt="Logo do Restaurante"/>
             <CardContent className={classes.rectangle}>
-                <RestaurantName color="primary">
+                <GreenTitle>
                     {name}
-                </RestaurantName>
+                </GreenTitle>
                 <RestaurantCardInfo component="div" variant="body2">
-                    <Box className={classes.deliveryTime}>
+                    <GrayText className={classes.deliveryTime}>
                         {deliveryTime} - {deliveryTime + 10} min
-                    </Box>
-                    <Box className={classes.freight}>
+                    </GrayText>
+                    <GrayText className={classes.freight}>
                         Frete R${shipping},00
-                    </Box>
+                    </GrayText>
                 </RestaurantCardInfo>
             </CardContent>
         </Card>
