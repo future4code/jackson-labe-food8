@@ -1,11 +1,12 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, getByAltText, render, screen } from '@testing-library/react';
 import App from './App';
 import axios from 'axios'
 import userEvent from '@testing-library/user-event';
 import LoginPage from './screens/Login+SignUp/LoginPage';
 import HomePage from './screens/Home/HomePage';
 import RestaurantPage from './screens/Restaurant/RestaurantPage';
+import SearchPage from './screens/SearchPage/SearchPage';
 
 axios.get = jest.fn().mockResolvedValue()
 
@@ -36,7 +37,7 @@ describe('Teste da página de login', () => {
 })
 
 describe('Teste da home', () => {
-  test('Requisição do feed', async () => {
+  test('Requisição get da feedPage', async () => {
     axios.get = jest.fn().mockResolvedValue({
       restaurants: [{
         id: 1,
@@ -50,7 +51,7 @@ describe('Teste da home', () => {
       }]
     })
 
-    render(<App/>)
+    render(<HomePage/>)
 
     const name = screen.getByText('nome do restaurante')
     expect(name).toBeInTheDocument()
@@ -60,6 +61,41 @@ describe('Teste da home', () => {
     expect(shipping).toBeInTheDocument()
 
     expect(axios.get).toHaveBeenCalledWith('https://us-central1-missao-newton.cloudfunctions.net/futureEatsA/restaurants')
+  });
+  test('Requisição get da searchPage', async () => {
+    axios.get = jest.fn().mockResolvedValue({
+      restaurants: [{
+        id: 1,
+        description: 'descrição',
+        shipping: 6,
+        name: 'habibs',
+        address: 'rua do restaurante',
+        logoUrl: 'url',
+        category: 'categoria',
+        deliveryTime: 60
+      },
+      {
+        id: 1,
+        description: 'descrição',
+        shipping: 6,
+        name: 'sotero',
+        address: 'rua do restaurante',
+        logoUrl: 'url',
+        category: 'categoria',
+        deliveryTime: 60
+      }]
+    })
+
+    render(<SearchPage/>)
+
+    const searchInput = screen.getByTestId('search')
+    expect(searchInput).toBeInTheDocument()
+    expect(screen.getByText('Busque por nome de restaurante')).toBeInTheDocument()
+
+    await userEvent.type(searchInput, 'sotero')
+
+    expect(axios.get).toHaveBeenCalledWith('https://us-central1-missao-newton.cloudfunctions.net/futureEatsA/restaurants')
+    expect(axios.get).toHaveLength(1)
   });
 });
 

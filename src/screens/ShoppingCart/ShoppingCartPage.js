@@ -1,11 +1,19 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router'
 
 import NavBar from '../../components/NavBar/NavBar'
 
 
 const ShoppingCartPage = (props) => {
-    const [order, setOrder] = useState({})
+    const pathParams = useParams();
+    const [orderList, setOrderList] = useState()
 
+
+    const requestPostOrder = () =>{
+        const body = {
+            products: pathParams.state
+        }
+    }
 
 
     return (
@@ -14,6 +22,7 @@ const ShoppingCartPage = (props) => {
                 <p>Endereço de entrega</p>
 
             </div>
+            {!pathParams && <h5>Carrinho vazio</h5>}
             <NavBar section={'shoppingCart'}/>
         </div>
     )
