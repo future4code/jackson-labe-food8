@@ -30,24 +30,11 @@ export const Info = styled.div`
     margin: 8px 0 8px 0;
 `
 
-export const AddressInfoContainer = styled.div`
-    font-size: 16px;
-    background-color: #eeeeee;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-
-`
-
 export const EditImg = styled.img`
     margin: 26px 16px 26px 0;
     align-self: flex-start;
 `
 
-export const InfoTitle = styled.div`
-    color: #b8b8b8;
-    margin-bottom: 8px;
-`
 
 
 

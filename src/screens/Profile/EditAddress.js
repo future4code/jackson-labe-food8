@@ -1,8 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom'
 
-import {goToProfile} from '../../routes/Coordinator'
-
 // Hooks:
 import { useProtectedPage } from '../../hooks/useProtection'
 import useForm from '../../hooks/useForm'
@@ -30,6 +28,7 @@ const EditAddress = () => {
     
         const submitForm = (event) => {
             event.preventDefault()
+            addAddress(form, history, 'edit')
         }
 
     return ( 

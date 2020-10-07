@@ -26,15 +26,19 @@ export const signup = (body, history) => {
     })
 }
 
-export const addAddress = (body, history) => {
-    axios.put(`${baseUrl}/address`, body, {
+export const addAddress = (body, history, page) => {
+    axios.put(`${baseUrl}address`, body, {
       headers: {
-        Authorization: localStorage.getItem('token')
+        auth: localStorage.getItem('token')
       }
     }).then((response) => {
-        localStorage.setItem('token' , response.data.token)
-        alert('Endereço adicionado com sucesso!')
-        goToFeed(history)
+        if (page === 'signup') {
+            localStorage.setItem('token' , response.data.token)
+            alert('Endereço adicionado com sucesso!')
+            goToFeed(history)
+        } else if (page === 'edit'){
+            goToProfile(history)
+        }  
       }
     ).catch((error) => {
         console.log(error)

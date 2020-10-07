@@ -12,8 +12,9 @@ import useRequestData from '../../hooks/useRequestData'
 import editIcon from '../../assets/edit.svg'
 
 // estilo:
-import {PageContainer, ProfileInfoContainer, AddressInfoContainer, TextContainer, InfoTitle, Info, EditImg} from './styled'
-import {SectionTitle} from '../../assets/Styled/styled-text'
+import {PageContainer, ProfileInfoContainer, TextContainer, Info, EditImg} from './styled'
+
+import {SectionTitle, AddressInfoContainer, GrayText, SimpleText} from '../../assets/Styled/styled-text'
 
 
 const ProfilePage = () => {
@@ -61,7 +62,7 @@ const ProfilePage = () => {
 
             <AddressInfoContainer>
                  <TextContainer>
-                    <InfoTitle>Endereço cadastrado</InfoTitle>
+                    <GrayText>Endereço cadastrado</GrayText>
                     <Info>{user.address}</Info>
                 </TextContainer>
                     <EditImg 
@@ -74,7 +75,7 @@ const ProfilePage = () => {
             Histórico de pedidos
             </SectionTitle>
 
-            {/* {orders &&
+            {orders &&
 
             (orders.length > 0)?
             <div>{orders.map( (order) => {
@@ -83,9 +84,9 @@ const ProfilePage = () => {
                )
             })}
             </div>:
-            <div>Você não realizou nenhum pedido</div>
+            <SimpleText>Você não realizou nenhum pedido</SimpleText>
 
-            } */}
+            }
             
             <NavBar section={'profile'}/>
             
