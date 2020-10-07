@@ -10,6 +10,8 @@ import { useHistory } from 'react-router-dom';
 import RestaurantsList from '../../components/RestaurantsList/RestaurantsList';
 import Header from '../../components/Header/Header';
 import CategorySlider from './CategorySlider'
+import { ThemeProvider } from '@material-ui/core/styles'
+import {theme} from '../../constants/theme'
 
 const HomePage = () => {
     const [feedArray, setFeedArray] = useState([])
@@ -47,10 +49,9 @@ const HomePage = () => {
     }
     
     return (
-        <div>
+        <ThemeProvider theme={theme}>
             <Header title={"FutureEats"}/>
             <SearchInput variant="outlined">
-                <InputLabel htmlFor="component-outlined" disableAnimation>Restaurante</InputLabel>
                 <OutlinedInput id="component-outlined" 
                     startAdornment={
                         <InputAdornment position='start'>
@@ -60,13 +61,14 @@ const HomePage = () => {
                         </InputAdornment>
                     }
                     onClick={() => goToSearch(history)}
+                    placeholder={"Restaurante"}
                     />
             </SearchInput>
             <CategorySlider array={feedArray} getCategory={handleClick}/>
             {isFiltered ? <RestaurantsList array={filteredArray}/> : <RestaurantsList array={feedArray}/>}
             
             <NavBar section={'homepage'}/>
-        </div>
+        </ThemeProvider>
     )
 }
 
