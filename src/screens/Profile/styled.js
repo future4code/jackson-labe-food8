@@ -50,6 +50,7 @@ export const OrderContainer = styled.div`
     border-radius: 8px;
     border: solid 1px #b8b8b8;
     background-color: #ffffff;
+    margin-bottom: 8px;
 `
 
 export const GreenTitle = styled.div`
