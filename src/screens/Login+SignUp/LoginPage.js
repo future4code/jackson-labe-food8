@@ -37,7 +37,7 @@ const LoginPage = () => {
            <LoginForm />
            <Container>
            <a
-           href="#" onClick={goToSignUp(history)}        
+           href="#" onClick={() => goToSignUp(history)}        
            >
             Não tem cadastro? Clique aqui!
            </a>
