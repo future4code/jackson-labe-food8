@@ -31,13 +31,12 @@ const ProfilePage = () => {
     const dataOrders = useRequestData({}, 'orders/history/')
     const orders = dataOrders && dataOrders.orders
 
-    const editProfile = () => {
+    const arrangeEditProfile = () => {
         goToEditProfile(history)
         localStorage.setItem('name', user.name)
         localStorage.setItem('email', user.email)
         localStorage.setItem('cpf', user.cpf)
     }
-
 
     if (!user || !orders) {
         return (
@@ -56,7 +55,7 @@ const ProfilePage = () => {
                 </TextContainer>
                     <EditImg 
                     src={editIcon}
-                    onClick = {() => editProfile()}
+                    onClick = {() => arrangeEditProfile()}
                     />
             </ProfileInfoContainer>
 
@@ -84,7 +83,7 @@ const ProfilePage = () => {
                 <TextContainer>
                     <GreenTitle>{order.restaurantName}</GreenTitle>
                     <DetailText>{convertTimestampToDate(order.createdAt)}</DetailText>
-                    <BoldText>SUBTOTAL R${order.totalPrice}</BoldText>
+                    <BoldText>SUBTOTAL R${order.totalPrice.toFixed(2).replace('.',',')}</BoldText>
                 </TextContainer>
                 </OrderContainer>
                )
