@@ -46,6 +46,9 @@ const SearchPage = () => {
                     label="Restaurante"
                     value={searchValue}
                     autoFocus
+                    inputProps={{
+                        'data-testid': 'search'
+                    }}
                 />
             </SearchInput>
             {searchValue === '' ? <p>Busque por nome de restaurante</p> : (searchValue !== '' && restaurantArray.length > 0 ? <RestaurantsList array={restaurantArray}/> : <p>Não encontramos :(</p>) }

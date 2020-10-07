@@ -13,6 +13,9 @@ import CategorySlider from './CategorySlider'
 
 const HomePage = () => {
     const [feedArray, setFeedArray] = useState([])
+    const [filteredArray, setFilteredArray] = useState([])
+    const [isFiltered, setIsFiltered] = useState(false)
+    const [currentCategory, setCurrentCategory] = useState('')
     const history = useHistory()
     
     useProtectedPage()
@@ -21,7 +24,27 @@ const HomePage = () => {
         getAllRestaurants(setFeedArray)
     }, [])
     
-    
+    useEffect(() => {
+        filterByCategory()
+    }, [feedArray, currentCategory])
+
+    const handleClick = (category) => {
+        if(currentCategory === '' || currentCategory !== category){
+            setIsFiltered(true)
+            setCurrentCategory(category)
+            filterByCategory()
+        } else if (currentCategory === category){
+            setIsFiltered(false)
+            setCurrentCategory('')
+        }
+    }
+
+    const filterByCategory = () => {
+        const categoryFilteredArray = feedArray.filter((restau) => {
+            return restau.category === currentCategory
+        })
+        setFilteredArray(categoryFilteredArray)
+    }
     
     return (
         <div>
@@ -39,8 +62,9 @@ const HomePage = () => {
                     onClick={() => goToSearch(history)}
                     />
             </SearchInput>
-            <CategorySlider array={feedArray}/>
-            <RestaurantsList array={feedArray}/>
+            <CategorySlider array={feedArray} getCategory={handleClick}/>
+            {isFiltered ? <RestaurantsList array={filteredArray}/> : <RestaurantsList array={feedArray}/>}
+            
             <NavBar section={'homepage'}/>
         </div>
     )
