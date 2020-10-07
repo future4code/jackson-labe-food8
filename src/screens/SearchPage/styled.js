@@ -5,5 +5,5 @@ export const SearchInput = styled(FormControl)`
     width: 328px;
     height: 56px;
     border-radius: 2px;
-    margin: 0 auto;
+    margin: 8px 16px !important;
 `

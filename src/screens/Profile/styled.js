@@ -1,9 +1,12 @@
 import styled from 'styled-components'
 
-export const ProfilePageContainer = styled.div`
-    font-family: 'Roboto', sans-serif;
+export const PageContainer = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+
 `
 
 export const ProfileInfoContainer = styled.div`
@@ -45,3 +48,6 @@ export const InfoTitle = styled.div`
     color: #b8b8b8;
     margin-bottom: 8px;
 `
+
+
+

@@ -17,19 +17,30 @@ export const goToRestaurant = (history, id) => {
   history.push(`/restaurants/${id}`)
 }
 
-export const goToShoppingCart = (history, state) => {
-  history.push(`/shoppingcart/${state}`)
+
+export const goBack = (history) => {
+    history.goBack()
 }
+  
+export const goToAddress = (history) => {
+    history.push(`/address`)
+} 
+  
+export const goToShoppingCart = (history) => {
+  history.push(`/shoppingcart`)
+}
+
+
+// -- USER SECTION -- 
 
 export const goToProfile = (history) => {
   history.push(`/profile`)
 }
 
-export const goBack = (history) => {
-  history.goBack()
-}
-
 export const goToEditProfile = (history) => {
   history.push(`/profile/edit-profile`)
 }
-  
+
+export const goToEditAddress = (history) => {
+  history.push(`/profile/edit-address`)
+}
