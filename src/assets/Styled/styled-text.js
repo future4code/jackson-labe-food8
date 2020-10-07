@@ -11,3 +11,20 @@ export const SectionTitle = styled.div`
     letter-spacing: -0.39px;
     color: #000000;
 `
+
+export const AddressInfoContainer = styled.div`
+    background-color: #eeeeee;
+    width: 100%;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+`
+
+export const GrayText = styled.div`
+    color: #b8b8b8;
+    margin-bottom: 8px;
+`
+
+export const SimpleText = styled.div`
+    margin-top: 28px;
+`
