@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Container, IconButton, InputAdornment, InputLabel, MuiThemeProvider, OutlinedInput } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles'
+import { IconButton, InputAdornment, OutlinedInput } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import RestaurantsList from '../../components/RestaurantsList/RestaurantsList';
-import { SearchInput } from './styled'
-import Header from '../../components/Header/Header';
+
 import { useProtectedPage } from '../../hooks/useProtection';
 import { getAllRestaurants } from '../../services/restaurants';
-import { ThemeProvider } from '@material-ui/core/styles'
-import {theme} from '../../constants/theme'
+import Header from '../../components/Header/Header';
+import RestaurantsList from '../../components/RestaurantsList/RestaurantsList';
+import { theme } from '../../constants/theme'
+import { SearchInput, DefaultText } from './styled'
 
 
 const SearchPage = () => {
@@ -32,6 +33,11 @@ const SearchPage = () => {
         setSearchValue(event.target.value)
     }
 
+    const doSearchMsg = <DefaultText>Busque por nome de restaurante</DefaultText>
+    const notFoundMsg = <DefaultText>Não encontramos :(</DefaultText>
+
+    const searchRender = searchValue === '' ? doSearchMsg : (searchValue !== '' && restaurantArray.length > 0 ? <RestaurantsList array={restaurantArray}/> : notFoundMsg) 
+
     return ( 
         <ThemeProvider theme={theme}>
             <Header back title={"Busca"}/>
@@ -53,7 +59,7 @@ const SearchPage = () => {
                     }}
                     />
             </SearchInput>
-            {searchValue === '' ? <p>Busque por nome de restaurante</p> : (searchValue !== '' && restaurantArray.length > 0 ? <RestaurantsList array={restaurantArray}/> : <p>Não encontramos :(</p>) }
+            {searchRender}
         </ThemeProvider>
      );
 }

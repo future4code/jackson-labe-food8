@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core'
+import { useHistory } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core/styles'
+import { IconButton, InputAdornment, OutlinedInput } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
+
 import { useProtectedPage } from '../../hooks/useProtection'
 import { getAllRestaurants } from '../../services/restaurants';
-import { SearchInput } from './styled';
-import NavBar from '../../components/NavBar/NavBar'
 import { goToSearch } from '../../routes/Coordinator';
-import { useHistory } from 'react-router-dom';
-import RestaurantsList from '../../components/RestaurantsList/RestaurantsList';
 import Header from '../../components/Header/Header';
+import RestaurantsList from '../../components/RestaurantsList/RestaurantsList';
 import CategorySlider from './CategorySlider'
-import { ThemeProvider } from '@material-ui/core/styles'
-import {theme} from '../../constants/theme'
+import NavBar from '../../components/NavBar/NavBar'
+import { theme } from '../../constants/theme'
+import { SearchInput } from './styled';
 
 const HomePage = () => {
     const [feedArray, setFeedArray] = useState([])
@@ -47,6 +48,8 @@ const HomePage = () => {
         })
         setFilteredArray(categoryFilteredArray)
     }
+
+    const feedRender = isFiltered ? <RestaurantsList array={filteredArray}/> : <RestaurantsList array={feedArray}/>
     
     return (
         <ThemeProvider theme={theme}>
@@ -65,8 +68,7 @@ const HomePage = () => {
                     />
             </SearchInput>
             <CategorySlider array={feedArray} getCategory={handleClick}/>
-            {isFiltered ? <RestaurantsList array={filteredArray}/> : <RestaurantsList array={feedArray}/>}
-            
+            {feedRender}
             <NavBar section={'homepage'}/>
         </ThemeProvider>
     )
