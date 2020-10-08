@@ -5,23 +5,15 @@ import { baseUrl } from '../../constants/urls';
 import { useProtectedPage } from '../../hooks/useProtection';
 import SimpleModal from './styled';
 
-
 const RestaurantPage = () => {
     const [restaurant, setRestaurant] = useState({});
     const [menu, setMenu] = useState([]);
-    const [order, setOrder] = useState({});
     const token = localStorage.getItem("token");
     const [categories, setCategories] = useState([]);
     const [filteredCategories, setFilteredCategories] = useState([]);
     const [visibilityCard, setVisibilityCard] = useState(false);
-    const [nameButton, setNameButton] = useState(true);
-    const [orderEnd, setOrderEnd] = useState([]);
     const [allDetails, setAllDetails] = useState([]);
     const pathParams = useParams();
-
-
-    const buttonName = nameButton ? "Adicionar" : "Remover";
-
 
     const requestGetDetail = (id) =>{
         const headers = {
@@ -49,35 +41,62 @@ const RestaurantPage = () => {
       setFilteredCategories(filteredArray)
     };
 
-    const clickButtonadd = (item) =>{
+    const clickButtonAdd = (item) =>{
         setVisibilityCard(!visibilityCard);
-        setNameButton(!nameButton);
-        setAllDetails(item);
+        let newArray = [...allDetails,item];
+        setAllDetails([...newArray]);
+    };
+    
+
+    const clickButtonCard = (qtd, reset) =>{
+        const element = document.getElementById('quantity')
+        const isValid = element.checkValidity()
+        element.reportValidity()
+        if(isValid){
+            setVisibilityCard(!visibilityCard);
+            let newArray = [...allDetails, qtd]
+            localStorage.setItem("all", JSON.stringify(newArray));
+            setAllDetails([...newArray]);
+        }
+        reset()
     };
 
-    const clickButtonCard = (qtd) =>{
-        setVisibilityCard(!visibilityCard);
-        setOrder({...allDetails.id, ...qtd});
-        let arrayId = [...orderEnd, order]
-        setOrderEnd(arrayId)
+    const clickButtonRm = (idItem) =>{
+        let array = JSON.parse(localStorage.getItem("all"))|| [];
+        array.splice(array.indexOf(idItem), 2);
+        let arrayId = array.map((some) =>{
+                return some.id
+        })
+        for(let i = 0; i <= arrayId.length; i++){
+            if(idItem === arrayId){
+                array.splice(i, 2)
+            }
+        }
+        localStorage.setItem("all", JSON.stringify(array));
     };
 
-    const clickButtonRm = (item) =>{
-        setNameButton(!nameButton);
-        orderEnd.splice(orderEnd.indexOf(item.id), 1)
+    const button = (it, details) =>{
+        const button = document.getElementById(it)
+        const infoButton = button.textContent;
+        if(infoButton === "Adicionar"){
+            button.innerText="Remover"
+            clickButtonAdd(details)
+        }
+        else{
+            button.innerText="Adicionar"
+            clickButtonRm(it)
+        }
     };
 
     const clickCart = (all, selection) =>{
         
-    }
+    };
 
-    const fnButton = nameButton ? clickButtonadd : clickButtonRm
+    useProtectedPage()
 
     useEffect(()=>{
       getCategories()
     }, [categories]);
-
-    useProtectedPage()
 
     useEffect(() =>{
         requestGetDetail(pathParams.id);
@@ -101,7 +120,7 @@ const RestaurantPage = () => {
             <p>Frete R${restaurant.shipping},00</p>
             <p>{restaurant.address}</p>
             {filteredCategories.map((item) =>{
-               return (
+                return (
                    <div>
                         <div>{item}</div>
                         <hr/>
@@ -110,11 +129,13 @@ const RestaurantPage = () => {
                                 if(info.category === item){
                                     return(
                                         <div>
-                                            <img src={info.photoUrl}/>
-                                            <p>{info.name}</p>
-                                            <p>{info.description}</p>
-                                            <div>{info.price} </div>
-                                            <button onClick={()=>{fnButton(info)}}>{buttonName}</button>
+                                            <div>
+                                                <img src={info.photoUrl}/>
+                                                <p>{info.name}</p>
+                                                <p>{info.description}</p>
+                                                <div>R${info.price}</div>
+                                                <button id={info.id} onClick={()=>button(info.id,info)}>Adicionar</button>
+                                            </div>
                                         </div>
                                     )
                                 }
@@ -125,7 +146,7 @@ const RestaurantPage = () => {
 
             })
             }
-            <SimpleModal click={clickButtonCard} state={visibilityCard}/>
+            <SimpleModal click={clickButtonCard} stateCard={visibilityCard}/>
         </div>
     )
 }
