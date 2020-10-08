@@ -20,23 +20,23 @@ const NavBar = (props) => {
         <NavBarContainer>
             <NavBarButton onClick={() => goToFeed(history)}> 
                 {props.section === 'homepage'?
-                <img src= {homePageIconSelected}/>:
-                <img src={homePageIcon}/>
+                <img src= {homePageIconSelected} alt={'Ícone da home selecionado'}/>:
+                <img src={homePageIcon} alt={'Ícone da home'}/>
                 }
 
             </NavBarButton>
 
             <NavBarButton onClick={() => goToShoppingCart(history)}> 
                 {props.section === 'shoppingCart'?
-                <img src= {shoppingCartIconSelected}/>:
-                <img src={shoppingCartIcon}/>
+                <img src= {shoppingCartIconSelected} alt={'Ícone do carrinho selecionado'}/>:
+                <img src={shoppingCartIcon} alt={'Ícone do carrinho'}/>
                 }
             </NavBarButton> 
 
             <NavBarButton onClick={() => goToProfile(history)}> 
                 {props.section === 'profile'?
-                <img src= {avatarIconSelected}/>:
-                <img src={avatarIcon}/>
+                <img src= {avatarIconSelected} alt={'Ícone do perfil selecionado'}/>:
+                <img src={avatarIcon} alt={'Ícone do perfil'}/>
                 }
             </NavBarButton> 
 
