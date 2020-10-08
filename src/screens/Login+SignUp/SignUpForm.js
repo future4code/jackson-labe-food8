@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Container, Typography, TextField, Button, InputAdornment, IconButton } from '@material-ui/core'
+import { TextField, Button, InputAdornment } from '@material-ui/core'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import useForm from '../../hooks/useForm'
-import { signUp } from '../../services/user';
+
+import { signup } from '../../services/user';
+import { goToAddress } from '../../routes/Coordinator'
+import { validate, TextDanger } from './validate';
 import { goToSignUpAddress, goToSignUp } from '../../routes/Coordinator'
+
 
 
 export const SignUpForm = props => {
@@ -16,16 +20,16 @@ export const SignUpForm = props => {
         password: '',
         confirm: ''
     })
+    const [errors, setErrors] = useState({})
 
     const history = useHistory()
 
     const onClickSignup = (event) => {
         event.preventDefault()
-        const element = document.getElementById('signup-form')
-        const isValid = element.checkValidity()
-        element.reportValidity()
-        if(isValid){
-            signUp(form, history)
+        if(validate(form,setErrors)){
+            signup(form, history)
+            resetState()
+            goToAddress(history)
         }
         
     }
@@ -43,12 +47,12 @@ export const SignUpForm = props => {
             required
             autoFocus
             margin={'normal'}
-            placeholder="Nome"
             InputLabelProps={{
                 shrink: true,
               }}
             placeholder="Nome e sobrenome"
             />
+            <TextDanger>{errors.name}</TextDanger>
             <TextField 
             value={form.email}
             name={'email'}
@@ -65,6 +69,7 @@ export const SignUpForm = props => {
               }}
             placeholder="email@email.com"
             />
+            <TextDanger>{errors.email}</TextDanger>
             <TextField 
             value={form.cpf}
             name={'cpf'}
@@ -81,6 +86,7 @@ export const SignUpForm = props => {
               }}
             placeholder="000.000.000-00"
             />
+            <TextDanger>{errors.cpf}</TextDanger>
             <TextField 
             value={form.password}
             name={'password'}
@@ -106,6 +112,7 @@ export const SignUpForm = props => {
               }}
             placeholder="Mínimo 6 caracteres"
             />
+            <TextDanger>{errors.password}</TextDanger>
             <TextField 
             value={form.confirm}
             name={'confirm'}
@@ -131,6 +138,7 @@ export const SignUpForm = props => {
               }}
             placeholder="Confirme senha anterior"
             />
+            <TextDanger>{errors.confirm}</TextDanger>
             <Button
              type="submit"
              variant="contained"
