@@ -3,9 +3,12 @@ import { useHistory } from 'react-router-dom'
 import { TextField, Button, InputAdornment } from '@material-ui/core'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import useForm from '../../hooks/useForm'
+
 import { signup } from '../../services/user';
 import { goToAddress } from '../../routes/Coordinator'
 import { validate, TextDanger } from './validate';
+import { goToSignUpAddress, goToSignUp } from '../../routes/Coordinator'
+
 
 
 export const SignUpForm = props => {
