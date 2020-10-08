@@ -1,8 +1,10 @@
 import React from 'react';
-import { Box, Card, CardContent, CardMedia, makeStyles } from '@material-ui/core';
-import { RestaurantName, RestaurantCardInfo } from './styled'
 import { useHistory } from 'react-router-dom';
-import {goToRestaurant} from '../../routes/Coordinator'
+import { Card, CardContent, CardMedia, makeStyles } from '@material-ui/core';
+import { goToRestaurant } from '../../routes/Coordinator'
+import { GrayText, GreenTitle } from '../../assets/Styled/styled-text'
+import { RestaurantCardInfo, TitleWrapper } from './styled'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,16 +18,12 @@ const useStyles = makeStyles((theme) => ({
     height: '120px',
   },
   rectangle: {
+      padding: 0,
+      height: '68px',
       display: 'flex',
       flexWrap: 'wrap',
+      boxSizing: 'border-box'
   },
-  deliveryTime: {
-    width: '148px'
-   },
-   freight: {
-     width: '140px',
-     textAlign: 'right',    
-  }
 }));
 
 const RestaurantCard = (props) => {
@@ -41,16 +39,18 @@ const RestaurantCard = (props) => {
         <Card className={classes.root} onClick={onClickCard}>
             <CardMedia className={classes.media} image={img} alt="Logo do Restaurante"/>
             <CardContent className={classes.rectangle}>
-                <RestaurantName color="primary">
-                    {name}
-                </RestaurantName>
-                <RestaurantCardInfo component="div" variant="body2">
-                    <Box className={classes.deliveryTime}>
+                <TitleWrapper>
+                  <GreenTitle>
+                      {name}
+                  </GreenTitle>
+                </TitleWrapper>
+                <RestaurantCardInfo>
+                    <GrayText>
                         {deliveryTime} - {deliveryTime + 10} min
-                    </Box>
-                    <Box className={classes.freight}>
+                    </GrayText>
+                    <GrayText>
                         Frete R${shipping},00
-                    </Box>
+                    </GrayText>
                 </RestaurantCardInfo>
             </CardContent>
         </Card>

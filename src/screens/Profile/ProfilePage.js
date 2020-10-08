@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import NavBar from '../../components/NavBar/NavBar'
 
 import { useHistory } from 'react-router-dom'
@@ -8,12 +9,13 @@ import {goToEditProfile, goToEditAddress} from '../../routes/Coordinator'
 import { useProtectedPage } from '../../hooks/useProtection'
 import useRequestData from '../../hooks/useRequestData'
 
+import convertTimestampToDate from '../../functions/convertTime'
+
 //images:
 import editIcon from '../../assets/edit.svg'
 
 // estilo:
-import {PageContainer, ProfileInfoContainer, TextContainer, Info, EditImg} from './styled'
-
+import {PageContainer, ProfileInfoContainer, TextContainer, Info, EditImg, ListContainer, OrderContainer, GreenTitle, DetailText, BoldText } from './styled'
 import {SectionTitle, AddressInfoContainer, GrayText, SimpleText} from '../../assets/Styled/styled-text'
 
 
@@ -23,23 +25,20 @@ const ProfilePage = () => {
 
     const history = useHistory()
 
-    const data = useRequestData({}, 'profile')
-    const user = data && data.user
+    const dataUser = useRequestData({}, 'profile')
+    const user = dataUser && dataUser.user
 
-    const orders = useRequestData({}, 'orders/history/')
+    const dataOrders = useRequestData({}, 'orders/history/')
+    const orders = dataOrders && dataOrders.orders
 
-    const editProfile = () => {
+    const arrangeEditProfile = () => {
         goToEditProfile(history)
         localStorage.setItem('name', user.name)
         localStorage.setItem('email', user.email)
         localStorage.setItem('cpf', user.cpf)
     }
 
-    const editAddress = () => {
-        goToEditAddress(history)
-    }
-
-    if (!user) {
+    if (!user || !orders) {
         return (
             <div></div>
         )
@@ -56,7 +55,7 @@ const ProfilePage = () => {
                 </TextContainer>
                     <EditImg 
                     src={editIcon}
-                    onClick = {() => editProfile()}
+                    onClick = {() => arrangeEditProfile()}
                     />
             </ProfileInfoContainer>
 
@@ -67,7 +66,7 @@ const ProfilePage = () => {
                 </TextContainer>
                     <EditImg 
                     src={editIcon}
-                    onClick = {() => editAddress()}
+                    onClick = {() => goToEditAddress(history)}
                     />
             </AddressInfoContainer>
 
@@ -78,12 +77,18 @@ const ProfilePage = () => {
             {orders &&
 
             (orders.length > 0)?
-            <div>{orders.map( (order) => {
+            <ListContainer>{orders.map( (order) => {
                return (
-                   <div>tem pedido</div>
+                <OrderContainer>
+                <TextContainer>
+                    <GreenTitle>{order.restaurantName}</GreenTitle>
+                    <DetailText>{convertTimestampToDate(order.createdAt)}</DetailText>
+                    <BoldText>SUBTOTAL R${order.totalPrice.toFixed(2).replace('.',',')}</BoldText>
+                </TextContainer>
+                </OrderContainer>
                )
             })}
-            </div>:
+            </ListContainer>:
             <SimpleText>Você não realizou nenhum pedido</SimpleText>
 
             }

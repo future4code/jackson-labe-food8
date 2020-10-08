@@ -28,10 +28,14 @@ const CategorySlider = (props) => {
         getCategories()
     }, [categories]);
 
+    const handleClick = (category) => {
+        props.getCategory(category)
+    }
+
     return (
         <Slider>
             {filteredCategories.map((category, index) => {
-                return <Category key={index}>{category}</Category>
+                return <Category key={index} onClick={() => handleClick(category)}>{category}</Category>
             })}
       </Slider>
     )

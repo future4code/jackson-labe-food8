@@ -35,6 +35,43 @@ export const EditImg = styled.img`
     align-self: flex-start;
 `
 
+export const ListContainer = styled.div`
+    width: 100vw;
+    margin-top: 7px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+export const OrderContainer = styled.div`
+    height: 102px;
+    width: 90%;
+    border-radius: 8px;
+    border: solid 1px #b8b8b8;
+    background-color: #ffffff;
+    margin-bottom: 8px;
+`
+
+export const GreenTitle = styled.div`
+    color: #5cb646;
+    letter-spacing: -0.39px;
+    margin-bottom: 9px;
+`
+
+export const DetailText = styled.div`
+    letter-spacing: -0.29px;
+    color: #000000;
+    font-size: 12px;
+    margin-bottom: 9px;
+`
+
+export const BoldText = styled.div`
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: -0.39px;
+    color: #000000;
+`
 
 
 
