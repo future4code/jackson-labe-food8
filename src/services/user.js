@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { baseUrl } from '../constants/urls'
-import { goToFeed, goToProfile, goToLogin } from '../routes/Coordinator'
+import { goToFeed, goToProfile, goToLogin, goToSignUpAddress } from '../routes/Coordinator'
 
 export const login = (body, history) => {
     axios.post(`${baseUrl}login`, body)
@@ -14,11 +14,11 @@ export const login = (body, history) => {
     })
 }
 
-export const signup = (body, history) => {
+export const signUp = (body, history) => {
     axios.post(`${baseUrl}signup`, body)
     .then((response) => {
         localStorage.setItem('token' , response.data.token)
-        goToLogin(history)
+        goToSignUpAddress(history)
     })
     .catch((err) => {
         console.log(err)

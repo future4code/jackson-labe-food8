@@ -33,7 +33,7 @@ const Router = () => {
                 <Header back={true}/>
                 <SignUpPage/> 
             </Route>
-            <Route exact path='/address'>
+            <Route exact path='/signup/address'>
                 <Header back={true}/>
                 <AddressPage/> 
             </Route>

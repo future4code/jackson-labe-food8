@@ -1,3 +1,5 @@
+// -- UNAUTHENTICATED SECTION -- 
+
 export const goToLogin = (history) => {
     history.push('/login')
   }
@@ -5,6 +7,12 @@ export const goToLogin = (history) => {
 export const goToSignUp = (history) => {
   history.push('/signup')
 }
+
+export const goToSignUpAddress = (history) => {
+  history.push(`/signup/address`)
+} 
+
+
 
 export const goToFeed = (history) => {
   history.push('/')
@@ -22,9 +30,7 @@ export const goBack = (history) => {
     history.goBack()
 }
   
-export const goToAddress = (history) => {
-    history.push(`/address`)
-} 
+
   
 export const goToShoppingCart = (history) => {
   history.push(`/shoppingcart`)
