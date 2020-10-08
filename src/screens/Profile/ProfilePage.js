@@ -5,10 +5,12 @@ import { useHistory } from 'react-router-dom'
 import {goToEditProfile, goToEditAddress} from '../../routes/Coordinator'
 
 // hooks:
-import { useProtectedPage } from '../../hooks/useProtection'
 import useRequestData from '../../hooks/useRequestData'
+import useValidations from '../../hooks/useValidations'
 
+//functions:
 import convertTimestampToDate from '../../functions/convertTime'
+import handleMoney from '../../functions/handleMoney'
 
 //images:
 import editIcon from '../../assets/edit.svg'
@@ -20,7 +22,7 @@ import {SectionTitle, AddressInfoContainer, GrayText, SimpleText} from '../../as
 
 const ProfilePage = () => {
 
-    useProtectedPage()
+    useValidations()
 
     const history = useHistory()
 
@@ -37,7 +39,7 @@ const ProfilePage = () => {
         localStorage.setItem('cpf', user.cpf)
     }
 
-    if (!user || !orders) {
+    if (!user) {
         return (
             <div></div>
         )
@@ -82,7 +84,7 @@ const ProfilePage = () => {
                 <TextContainer>
                     <GreenTitle>{order.restaurantName}</GreenTitle>
                     <DetailText>{convertTimestampToDate(order.createdAt)}</DetailText>
-                    <BoldText>SUBTOTAL R${order.totalPrice.toFixed(2).replace('.',',')}</BoldText>
+                    <BoldText>SUBTOTAL R${handleMoney(order.totalPrice)}</BoldText>
                 </TextContainer>
                 </OrderContainer>
                )
