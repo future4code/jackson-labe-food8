@@ -10,6 +10,7 @@ import { goToSignUpAddress } from '../../routes/Coordinator'
 
 
 
+
 export const SignUpForm = props => {
 
     const {form, handleInputChange, resetState} = useForm({
