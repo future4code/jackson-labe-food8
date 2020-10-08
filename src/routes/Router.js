@@ -30,9 +30,11 @@ const Router = () => {
                 <LoginPage/> 
             </Route>
             <Route exact path='/signup'>
+                <Header back={true}/>
                 <SignUpPage/> 
             </Route>
             <Route exact path='/address'>
+                <Header back={true}/>
                 <AddressPage/> 
             </Route>
             <Route exact path='/restaurants/:id'>
@@ -40,6 +42,7 @@ const Router = () => {
                 <RestaurantPage/> 
             </Route>
             <Route exact path='/shoppingcart/:state?'>
+                <Header title="Meu carrinho"/>
                 <ShoppingCartPage/> 
             </Route>
             <Route exact path='/profile'>
