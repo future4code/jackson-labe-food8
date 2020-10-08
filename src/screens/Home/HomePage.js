@@ -27,7 +27,7 @@ const HomePage = () => {
         getAllRestaurants(setFeedArray)
     }, [])
     
-    useEffect(() => {
+    useEffect(() => {   
         filterByCategory()
     }, [feedArray, currentCategory])
 

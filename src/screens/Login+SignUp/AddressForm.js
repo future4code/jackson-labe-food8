@@ -10,25 +10,34 @@ import { goToSignUp } from '../../routes/Coordinator'
 export const AddressForm = () => {
 
     const {form, handleInputChange, resetState} = useForm({
-        logradouro: '',
-        complemento: '',
-        bairro: '',
-        cidade: '',
-        estado: ''
-
+      neighbourhood: "",
+      number: "", 
+      city: "",
+      apartment: "",
+      state: "",
+      street: "",
     })
+
     const history = useHistory()
 
     const submitForm = (event) => {
+
       event.preventDefault()
-      addAddress(form, history)
+      const element = document.getElementById('address-form')
+      const isValid = element.checkValidity()
+      element.reportValidity()
+
+      if(isValid){
+        addAddress(form, history, 'signup')
+      }
+
   }
 
     return (
         <form id={'address-form'} onSubmit={submitForm}>
             <TextField 
-            value={form.logradouro}
-            name={'logradouro'}
+            value={form.street}
+            name={'street'}
             onChange={handleInputChange}
             label={'Logradouro'}
             variant={'outlined'}
@@ -42,8 +51,22 @@ export const AddressForm = () => {
             placeholder="Rua/Av."
             />
             <TextField 
-            value={form.complemento}
-            name={'complemento'}
+            value={form.number}
+            name={'number'}
+            onChange={handleInputChange}
+            label={'Número'}
+            variant={'outlined'}
+            fullWidth
+            required
+            margin={'normal'}
+            InputLabelProps={{
+                shrink: true,
+              }}
+            placeholder="Número"
+            />
+            <TextField 
+            value={form.apartment}
+            name={'apartment'}
             onChange={handleInputChange}
             label={'Complemento'}
             variant={'outlined'}
@@ -55,8 +78,8 @@ export const AddressForm = () => {
             placeholder="Apto./Bloco"
             />
             <TextField 
-            value={form.bairro}
-            name={'bairro'}
+            value={form.neighbourhood}
+            name={'neighbourhood'}
             onChange={handleInputChange}
             label={'Bairro'}
             type={'text'}
@@ -70,8 +93,8 @@ export const AddressForm = () => {
             placeholder="Bairro"
             />
             <TextField 
-            value={form.cidade}
-            name={'cidade'}
+            value={form.city}
+            name={'city'}
             onChange={handleInputChange}
             label={'Cidade'}
             variant={'outlined'}
@@ -84,8 +107,8 @@ export const AddressForm = () => {
             placeholder="Cidade"
             />
             <TextField 
-            value={form.estado}
-            name={'estado'}
+            value={form.state}
+            name={'state'}
             onChange={handleInputChange}
             label={'Estado'}
             variant={'outlined'}
@@ -102,7 +125,6 @@ export const AddressForm = () => {
              variant="contained"
              color="primary"
              fullWidth
-             onClick={() => goToSignUp(history)}
              >
              Salvar
              </Button> 
