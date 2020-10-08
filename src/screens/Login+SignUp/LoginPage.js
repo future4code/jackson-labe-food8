@@ -8,6 +8,8 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { primaryColor } from '../../constants/colors'
 import { UpperContainer } from './styled'
 import { goToSignUp } from '../../routes/Coordinator'
+import { AddressPageLink } from './styled'
+import { LinkContainer } from './styled'
 
 const MainTheme = createMuiTheme({
     palette: {
@@ -35,14 +37,13 @@ const LoginPage = () => {
             </UpperContainer>
         <MuiThemeProvider theme={MainTheme}>
            <LoginForm />
-           <Container>
-           <a
-           href="#" onClick={() => goToSignUp(history)}        
-           >
-            Não tem cadastro? Clique aqui!
-           </a>
-           </Container>
-
+           <LinkContainer>
+              <AddressPageLink
+              href="#" onClick={() => goToSignUp(history)}       
+              >
+                Não possui cadastro? Clique aqui.
+              </AddressPageLink>
+           </LinkContainer>
         </MuiThemeProvider>
         </Container>
     )

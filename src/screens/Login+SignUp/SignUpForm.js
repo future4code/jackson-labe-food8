@@ -7,7 +7,7 @@ import { signup } from '../../services/user';
 import { goToAddress, goToSignUp } from '../../routes/Coordinator'
 
 
-export const SignUpForm = () => {
+export const SignUpForm = props => {
 
     const {form, handleInputChange, resetState} = useForm({
         name: '',
@@ -31,10 +31,7 @@ export const SignUpForm = () => {
         }
         
     }
-
-
-    
-
+ 
     return (
         <form id={'signup-form'}>
             <TextField 

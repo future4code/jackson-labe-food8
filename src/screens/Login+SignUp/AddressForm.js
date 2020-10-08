@@ -20,19 +20,13 @@ export const AddressForm = () => {
     })
     const history = useHistory()
 
-    const onClickAddress = (event) => {
-        event.preventDefault()
-        const element = document.getElementById('address-form')
-        const isValid = element.checkValidity()
-        element.reportValidity()
-        if(isValid){
-          addAddress(form, history)
-            resetState()
-        }
-    }
+    const submitForm = (event) => {
+      event.preventDefault()
+      addAddress(form, history)
+  }
 
     return (
-        <form id={'address-form'}>
+        <form id={'address-form'} onSubmit={submitForm}>
             <TextField 
             value={form.logradouro}
             name={'logradouro'}
