@@ -83,6 +83,7 @@ export const LoginForm = () => {
                     color="primary"
                     fullWidth
                     onClick={onClickLogin}
+                    textAllCaps="false"
                 >
                 Entrar
                 </Button>           
