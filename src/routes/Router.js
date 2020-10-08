@@ -38,10 +38,11 @@ const Router = () => {
                 <AddressPage/> 
             </Route>
             <Route exact path='/restaurants/:id'>
-                <Header title="Restaurante"/>
+                <Header title="Restaurante" back={true}/>
                 <RestaurantPage/> 
             </Route>
             <Route exact path='/shoppingcart/:state?'>
+                <Header title="Meu carrinho"/>
                 <ShoppingCartPage/> 
             </Route>
             <Route exact path='/profile'>
