@@ -40,6 +40,7 @@ const Router = () => {
                 <RestaurantPage/> 
             </Route>
             <Route exact path='/shoppingcart/:state?'>
+                <Header title="Meu carrinho"/>
                 <ShoppingCartPage/> 
             </Route>
             <Route exact path='/profile'>
