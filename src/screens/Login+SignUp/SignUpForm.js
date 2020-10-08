@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom'
 import { Container, Typography, TextField, Button, InputAdornment, IconButton } from '@material-ui/core'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import useForm from '../../hooks/useForm'
-import { signup } from '../../services/user';
-import { goToAddress, goToSignUp } from '../../routes/Coordinator'
+import { signUp } from '../../services/user';
+import { goToSignUpAddress, goToSignUp } from '../../routes/Coordinator'
 
 
 export const SignUpForm = props => {
@@ -25,9 +25,7 @@ export const SignUpForm = props => {
         const isValid = element.checkValidity()
         element.reportValidity()
         if(isValid){
-            signup(form, history)
-            resetState()
-            goToAddress(history)
+            signUp(form, history)
         }
         
     }
