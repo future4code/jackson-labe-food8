@@ -16,9 +16,6 @@ const EditAddress = () => {
 
         useProtectedPage()    
         const history = useHistory()
-
-        // const data = useRequestData({}, 'profile')
-        // const address = data.address
     
         const {form, handleInputChange} = useForm({
             neighbourhood: localStorage.getItem('neighbourhood'),

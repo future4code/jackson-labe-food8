@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom'
-import { useLayoutEffect, useEffect, useState } from 'react'
+import { useLayoutEffect } from 'react'
 import { goToFeed, goToLogin, goToSignUpAddress } from '../routes/Coordinator'
 
 import axios from 'axios'
@@ -32,7 +32,6 @@ export const useUnprotectedPage = () => {
 export const useHasAddress = () => {
 
   const history = useHistory()
-  const [user, setUser] = useState({})
 
   useLayoutEffect (() => {
     axios
@@ -54,6 +53,7 @@ export const useHasAddress = () => {
     .catch( (error) => {
         console.log(error)
     })
-  },[user, history] )
+
+  },[history] )
 
 }
