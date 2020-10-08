@@ -6,6 +6,8 @@ import { useUnprotectedPage } from '../../hooks/useProtection'
 import { LoginForm } from './LoginForm'
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { primaryColor } from '../../constants/colors'
+import { UpperContainer } from './styled'
+import { goToSignUp } from '../../routes/Coordinator'
 
 const MainTheme = createMuiTheme({
     palette: {
@@ -17,19 +19,30 @@ const MainTheme = createMuiTheme({
       }
     }
   });
+  
+
 
 
 const LoginPage = () => {
-    //useUnprotectedPage()
+    useUnprotectedPage()
+    const history = useHistory()
 
     return (
         <Container>
+            <UpperContainer>
+                <h1>Logo</h1>
+            <Typography>Entrar</Typography>
+            </UpperContainer>
         <MuiThemeProvider theme={MainTheme}>
-           <Typography>entrar</Typography>
            <LoginForm />
-           <Button>
+           <Container>
+           <a
+           href="#" onClick={() => goToSignUp(history)}        
+           >
             Não tem cadastro? Clique aqui!
-           </Button>
+           </a>
+           </Container>
+
         </MuiThemeProvider>
         </Container>
     )

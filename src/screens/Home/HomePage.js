@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { Container, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core'
+import { useHistory } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core/styles'
+import { IconButton, InputAdornment, OutlinedInput } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
+
 import { useProtectedPage } from '../../hooks/useProtection'
 import { getAllRestaurants } from '../../services/restaurants';
-import { SearchInput } from './styled';
-import NavBar from '../../components/NavBar/NavBar'
 import { goToSearch } from '../../routes/Coordinator';
-import { useHistory } from 'react-router-dom';
+import Header from '../../components/Header/Header';
 import RestaurantsList from '../../components/RestaurantsList/RestaurantsList';
+import CategorySlider from './CategorySlider'
+import NavBar from '../../components/NavBar/NavBar'
+import { theme } from '../../constants/theme'
+import { SearchInput } from './styled';
 
 const HomePage = () => {
     const [feedArray, setFeedArray] = useState([])
+    const [filteredArray, setFilteredArray] = useState([])
+    const [isFiltered, setIsFiltered] = useState(false)
+    const [currentCategory, setCurrentCategory] = useState('')
     const history = useHistory()
     
     useProtectedPage()
@@ -19,14 +27,36 @@ const HomePage = () => {
         getAllRestaurants(setFeedArray)
     }, [])
     
-    
+    useEffect(() => {
+        filterByCategory()
+    }, [feedArray, currentCategory])
 
+    const handleClick = (category) => {
+        if(currentCategory === '' || currentCategory !== category){
+            setIsFiltered(true)
+            setCurrentCategory(category)
+            filterByCategory()
+        } else if (currentCategory === category){
+            setIsFiltered(false)
+            setCurrentCategory('')
+        }
+    }
+
+    const filterByCategory = () => {
+        const categoryFilteredArray = feedArray.filter((restau) => {
+            return restau.category === currentCategory
+        })
+        setFilteredArray(categoryFilteredArray)
+    }
+
+    const feedRender = isFiltered ? <RestaurantsList array={filteredArray}/> : <RestaurantsList array={feedArray}/>
+    
     return (
-        <div>
-            <Container>
+        <ThemeProvider theme={theme}>
+            <Header title={"FutureEats"}/>
             <SearchInput variant="outlined">
-                <InputLabel htmlFor="component-outlined" disableAnimation>Restaurante</InputLabel>
-                <OutlinedInput id="component-outlined" startAdornment={
+                <OutlinedInput id="component-outlined" 
+                    startAdornment={
                         <InputAdornment position='start'>
                         <IconButton>
                             <SearchIcon/>
@@ -34,12 +64,13 @@ const HomePage = () => {
                         </InputAdornment>
                     }
                     onClick={() => goToSearch(history)}
-                />
+                    placeholder={"Restaurante"}
+                    />
             </SearchInput>
-                <RestaurantsList array={feedArray}/>
-            </Container>
+            <CategorySlider array={feedArray} getCategory={handleClick}/>
+            {feedRender}
             <NavBar section={'homepage'}/>
-            </div>
+        </ThemeProvider>
     )
 }
 

@@ -5,6 +5,8 @@ import RestaurantCard from '../../screens/Home/RestaurantCard';
 const FeedContainer = styled.section`
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    justify-content: center;
 `
 
 const RestaurantsList = (props) => {

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Container, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles'
+import { IconButton, InputAdornment, OutlinedInput } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+
 import { useProtectedPage } from '../../hooks/useProtection';
 import { getAllRestaurants } from '../../services/restaurants';
-import { SearchInput } from './styled'
+import Header from '../../components/Header/Header';
 import RestaurantsList from '../../components/RestaurantsList/RestaurantsList';
+import { theme } from '../../constants/theme'
+import { SearchInput, DefaultText } from './styled'
+
 
 const SearchPage = () => {
     const [searchValue, setSearchValue] = useState('')
@@ -17,23 +22,28 @@ const SearchPage = () => {
         getAllRestaurants(setFeedArray)
     }, [])
 
-    const onChangeSearch = (event) => {
-        setSearchValue(event.target.value) 
-        getFilteredArray()
-    }
-
-    const getFilteredArray = () => {
+    useEffect(() => {
         const restaurantArray = feedArray.filter((rest) => {
             return rest.name.toLowerCase().match(searchValue.toLowerCase())
         })
         setRestaurantArray(restaurantArray)
+    }, [searchValue])
+
+    const onChangeSearch = (event) => {
+        setSearchValue(event.target.value)
     }
 
+    const doSearchMsg = <DefaultText>Busque por nome de restaurante</DefaultText>
+    const notFoundMsg = <DefaultText>Não encontramos :(</DefaultText>
+
+    const searchRender = searchValue === '' ? doSearchMsg : (searchValue !== '' && restaurantArray.length > 0 ? <RestaurantsList array={restaurantArray}/> : notFoundMsg) 
+
     return ( 
-        <Container>
-            <SearchInput variant="outlined">
-                <InputLabel htmlFor="component-outlined" disableAnimation>Restaurante</InputLabel>
-                <OutlinedInput id="component-outlined" startAdornment={
+        <ThemeProvider theme={theme}>
+            <Header back title={"Busca"}/>
+            <SearchInput variant="outlined" color="primary">
+                <OutlinedInput id="component-outlined" 
+                    startAdornment={
                         <InputAdornment position='start'>
                         <IconButton>
                             <SearchIcon/>
@@ -41,14 +51,16 @@ const SearchPage = () => {
                         </InputAdornment>
                     }
                     onChange={onChangeSearch}
-                    label="Restaurante"
                     value={searchValue}
-                />
+                    placeholder={"Restaurante"}
+                    autoFocus
+                    inputProps={{
+                        'data-testid': 'search'
+                    }}
+                    />
             </SearchInput>
-            <Container>
-                {searchValue === '' ? <p>Busque por nome de restaurante</p> : (searchValue !== '' && restaurantArray.length > 0 ? <RestaurantsList array={restaurantArray}/> : <p>Não encontramos :(</p>) }
-            </Container>            
-        </Container>
+            {searchRender}
+        </ThemeProvider>
      );
 }
  

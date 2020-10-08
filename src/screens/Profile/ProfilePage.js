@@ -1,19 +1,22 @@
 import React from 'react'
+import styled from 'styled-components'
 import NavBar from '../../components/NavBar/NavBar'
 
 import { useHistory } from 'react-router-dom'
-import { goToEditProfile } from '../../routes/Coordinator'
-
+import {goToEditProfile, goToEditAddress} from '../../routes/Coordinator'
 
 // hooks:
 import { useProtectedPage } from '../../hooks/useProtection'
 import useRequestData from '../../hooks/useRequestData'
 
+import convertTimestampToDate from '../../functions/convertTime'
+
 //images:
 import editIcon from '../../assets/edit.svg'
 
 // estilo:
-import {ProfilePageContainer, ProfileInfoContainer, AddressInfoContainer, TextContainer, InfoTitle, Info, EditImg} from './styled'
+import {PageContainer, ProfileInfoContainer, TextContainer, Info, EditImg, ListContainer, OrderContainer, GreenTitle, DetailText, BoldText } from './styled'
+import {SectionTitle, AddressInfoContainer, GrayText, SimpleText} from '../../assets/Styled/styled-text'
 
 
 const ProfilePage = () => {
@@ -22,54 +25,77 @@ const ProfilePage = () => {
 
     const history = useHistory()
 
-    const data = useRequestData({}, 'profile')
-    const user = data && data.user
+    const dataUser = useRequestData({}, 'profile')
+    const user = dataUser && dataUser.user
 
-    const orders = useRequestData({}, 'orders/history/')
+    const dataOrders = useRequestData({}, 'orders/history/')
+    const orders = dataOrders && dataOrders.orders
 
+    const arrangeEditProfile = () => {
+        goToEditProfile(history)
+        localStorage.setItem('name', user.name)
+        localStorage.setItem('email', user.email)
+        localStorage.setItem('cpf', user.cpf)
+    }
+
+    if (!user || !orders) {
+        return (
+            <div></div>
+        )
+    }
+        
     return (
-        <ProfilePageContainer>
-            {user &&
+        <PageContainer>
+
             <ProfileInfoContainer>
                 <TextContainer>
                     <Info>{user.name} </Info>
                     <Info>{user.email}</Info>
                     <Info>{user.cpf}</Info>
                 </TextContainer>
-                <EditImg 
+                    <EditImg 
                     src={editIcon}
-                    onClick ={() => goToEditProfile(history)}
-                />
+                    onClick = {() => arrangeEditProfile()}
+                    />
             </ProfileInfoContainer>
-            }
 
-            {user &&
             <AddressInfoContainer>
-                <TextContainer>
-                    <InfoTitle>Endereço cadastrado</InfoTitle>
+                 <TextContainer>
+                    <GrayText>Endereço cadastrado</GrayText>
                     <Info>{user.address}</Info>
                 </TextContainer>
-                <EditImg src={editIcon}/>
+                    <EditImg 
+                    src={editIcon}
+                    onClick = {() => goToEditAddress(history)}
+                    />
             </AddressInfoContainer>
-            }
 
-            <div>Histórico de pedidos</div>
+            <SectionTitle>
+            Histórico de pedidos
+            </SectionTitle>
 
             {orders &&
 
             (orders.length > 0)?
-            <div>{orders.map( (order) => {
+            <ListContainer>{orders.map( (order) => {
                return (
-                   <div>tem pedido</div>
+                <OrderContainer>
+                <TextContainer>
+                    <GreenTitle>{order.restaurantName}</GreenTitle>
+                    <DetailText>{convertTimestampToDate(order.createdAt)}</DetailText>
+                    <BoldText>SUBTOTAL R${order.totalPrice.toFixed(2).replace('.',',')}</BoldText>
+                </TextContainer>
+                </OrderContainer>
                )
             })}
-            </div>:
-            <div>Você não realizou nenhum pedido</div>
+            </ListContainer>:
+            <SimpleText>Você não realizou nenhum pedido</SimpleText>
 
             }
             
             <NavBar section={'profile'}/>
-        </ProfilePageContainer>
+            
+        </PageContainer>
     )
 }
 

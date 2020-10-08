@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {baseUrl} from '../constants/urls'
 
 const useRequestData = (initialData, endpoint) => {
 
     const [data, setData] = useState(initialData)
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const token = window.localStorage.getItem('token')
         
         if (token) {
@@ -18,7 +18,6 @@ const useRequestData = (initialData, endpoint) => {
     
             .then( (response) => {
                 setData(response.data)
-                console.log(response.data)
             })
             .catch( (error) => {
                 console.log(error)
