@@ -27,7 +27,7 @@ const HomePage = () => {
         getAllRestaurants(setFeedArray)
     }, [])
     
-    useEffect(() => {
+    useEffect(() => {   
         filterByCategory()
     }, [feedArray, currentCategory])
 
@@ -67,7 +67,7 @@ const HomePage = () => {
                     placeholder={"Restaurante"}
                     />
             </SearchInput>
-            <CategorySlider array={feedArray} getCategory={handleClick}/>
+            <CategorySlider array={feedArray} getCategory={handleClick} currentCategory={currentCategory}/>
             {feedRender}
             <NavBar section={'homepage'}/>
         </ThemeProvider>
