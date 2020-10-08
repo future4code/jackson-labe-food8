@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event';
 import LoginPage from './screens/Login+SignUp/LoginPage';
 import HomePage from './screens/Home/HomePage';
 import RestaurantPage from './screens/Restaurant/RestaurantPage';
+import SignUpPage from './screens/Login+SignUp/SignUpPage';
 
 axios.get = jest.fn().mockResolvedValue()
 
@@ -86,4 +87,45 @@ test("requisição post restaurantPage", async () =>{
 
   await expect(axios.get).toHaveBeenCalled()
   await expect(axios.get).toHaveLength(2)
+})
+
+describe('Teste da página de signup', () => {
+  test('cadastro do usuário', async () => {
+    axios.post = jest.fn().mockResolvedValue()
+
+    render(<SignUpPage/>)
+
+    const nameInput = screen.getByPlaceholderText('Nome e sobrenome')
+    expect(nameInput).toBeInTheDocument()
+
+    const emailInput = screen.getByPlaceholderText('email@email.com')
+    expect(emailInput).toBeInTheDocument()
+
+    const cpfInput = screen.getByPlaceholderText('000.000.000-00')
+    expect(cpfInput).toBeInTheDocument()
+
+    const passwordInput = screen.getByPlaceholderText('Mínimo 6 caracteres')
+    expect(passwordInput).toBeInTheDocument()
+
+    const confirmInput = screen.getByPlaceholderText('Confirme senha anterior')
+    expect(confirmInput).toBeInTheDocument()
+
+    const button = screen.getByText('Criar')
+    expect(button).toBeInTheDocument()
+
+    await userEvent.type(nameInput, 'teste')
+    userEvent.type(emailInput, 'email@email.com')
+    userEvent.type(cpfInput, '000.000.000-00')
+    userEvent.type(passwordInput, '123456')
+    userEvent.type(confirmInput, '123456')
+    userEvent.click(button)
+
+    expect(axios.post).toHaveBeenCalledWith('https://us-central1-missao-newton.cloudfunctions.net/futureEatsA/signup',  {
+      name: 'teste',
+      email: 'email@email.com',
+      cpf: '000.000.000-00',
+      password: '123456',
+      confirm: '123456'
+    })
+  })
 })
