@@ -21,12 +21,12 @@ const EditAddress = () => {
         // const address = data.address
     
         const {form, handleInputChange} = useForm({
-            neighbourhood: "",
-            number: "", 
-            city: "",
-            apartment: "",
-            state: "",
-            street: "",
+            neighbourhood: localStorage.getItem('neighbourhood'),
+            number: localStorage.getItem('number'), 
+            city: localStorage.getItem('city'),
+            apartment: '',
+            state: localStorage.getItem('state'),
+            street: localStorage.getItem('street'),
         })
     
         const submitForm = (event) => {

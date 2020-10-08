@@ -32,6 +32,9 @@ const ProfilePage = () => {
     const dataOrders = useRequestData({}, 'orders/history/')
     const orders = dataOrders && dataOrders.orders
 
+    const dataAddress = useRequestData({}, 'profile/address/')
+    const address = dataAddress && dataAddress.address
+
     const arrangeEditProfile = () => {
         goToEditProfile(history)
         localStorage.setItem('name', user.name)
@@ -39,7 +42,17 @@ const ProfilePage = () => {
         localStorage.setItem('cpf', user.cpf)
     }
 
-    if (!user) {
+    const arrangeEditAddress = () => {
+        goToEditAddress(history)
+        localStorage.setItem('street', address.street)
+        localStorage.setItem('number', address.number)
+        localStorage.setItem('apartment', address.apartment)
+        localStorage.setItem('neighbourhood', address.neighbourhood)
+        localStorage.setItem('city', address.city)
+        localStorage.setItem('state', address.state)
+    }
+
+    if (!user || !orders) {
         return (
             <div></div>
         )
@@ -67,7 +80,7 @@ const ProfilePage = () => {
                 </TextContainer>
                     <EditImg 
                     src={editIcon}
-                    onClick = {() => goToEditAddress(history)}
+                    onClick = {() => arrangeEditAddress()}
                     />
             </AddressInfoContainer>
 
