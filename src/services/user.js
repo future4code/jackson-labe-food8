@@ -63,3 +63,22 @@ export const addAddress = (body, history, page) => {
         alert('Falha no login, tente novamente!')
     })
 }
+
+// export const getProfile = (setNewState) => {
+
+//     axios
+//     .get(`${baseUrl}profile`, {
+//         headers: {
+//             auth: localStorage.getItem('token')
+//         }
+//     })
+
+//     .then ( (response) => {
+//         setNewState(response.data.user)
+//         console.log("Dentro da requisição:", response.data.user)
+//         return (response.data.user)
+//     }) 
+//     .catch( (error) => {
+//         console.log(error)
+//     })
+// }

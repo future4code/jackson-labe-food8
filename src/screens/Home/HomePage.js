@@ -4,7 +4,6 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import { IconButton, InputAdornment, OutlinedInput } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
 
-import { useProtectedPage } from '../../hooks/useProtection'
 import { getAllRestaurants } from '../../services/restaurants';
 import { goToSearch } from '../../routes/Coordinator';
 import Header from '../../components/Header/Header';
@@ -14,6 +13,9 @@ import NavBar from '../../components/NavBar/NavBar'
 import { theme } from '../../constants/theme'
 import { SearchInput } from './styled';
 
+import useValidations from '../../hooks/useValidations'
+
+
 const HomePage = () => {
     const [feedArray, setFeedArray] = useState([])
     const [filteredArray, setFilteredArray] = useState([])
@@ -21,7 +23,7 @@ const HomePage = () => {
     const [currentCategory, setCurrentCategory] = useState('')
     const history = useHistory()
     
-    useProtectedPage()
+    useValidations()
     
     useEffect(() => {
         getAllRestaurants(setFeedArray)
