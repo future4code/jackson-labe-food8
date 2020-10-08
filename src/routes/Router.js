@@ -36,6 +36,7 @@ const Router = () => {
                 <AddressPage/> 
             </Route>
             <Route exact path='/restaurants/:id'>
+                <Header title="Restaurante" back={true}/>
                 <RestaurantPage/> 
             </Route>
             <Route exact path='/shoppingcart/:state?'>
