@@ -7,6 +7,7 @@ import { signup } from '../../services/user';
 import { goToAddress, goToSignUp } from '../../routes/Coordinator'
 
 
+
 export const SignUpForm = props => {
 
     const {form, handleInputChange, resetState} = useForm({

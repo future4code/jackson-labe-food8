@@ -10,6 +10,9 @@ import { UpperContainer } from './styled'
 import { goToSignUp } from '../../routes/Coordinator'
 import { AddressPageLink } from './styled'
 import { LinkContainer } from './styled'
+import { TextContainer } from './styled'
+import { LogoContainer } from './styled'
+import Logo  from '../../assets/logo-future-eats-invert.png'
 
 const MainTheme = createMuiTheme({
     palette: {
@@ -32,9 +35,11 @@ const LoginPage = () => {
     return (
         <Container>
             <UpperContainer>
-                <h1>Logo</h1>
-            <Typography>Entrar</Typography>
+                <img src= { Logo } />            
             </UpperContainer>
+            <TextContainer>
+              <Typography>Entrar</Typography>
+            </TextContainer>
         <MuiThemeProvider theme={MainTheme}>
            <LoginForm />
            <LinkContainer>

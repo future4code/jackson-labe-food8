@@ -7,6 +7,8 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { primaryColor } from '../../constants/colors'
 import { UpperContainer } from './styled'
 import { useUnprotectedPage } from '../../hooks/useProtection'
+import Logo  from '../../assets/logo-future-eats-invert.png'
+import { TextContainer } from './styled'
 
 const MainTheme = createMuiTheme({
     palette: {
@@ -27,9 +29,11 @@ const SignUpPage = () => {
     return (
         <Container>
             <UpperContainer>
-                <h1>Logo</h1>
-            <Typography>Cadastrar</Typography>
+              <img src= { Logo } />            
             </UpperContainer>
+            <TextContainer>
+              <Typography>Cadastrar</Typography>
+            </TextContainer>
             <Container>
             <MuiThemeProvider theme={MainTheme}>
                 <SignUpForm />
