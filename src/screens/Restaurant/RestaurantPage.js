@@ -88,7 +88,7 @@ const RestaurantPage = () => {
         }
     };
 
-    const clickCart = (all, selection) =>{
+    const clickCart = () =>{
         
     };
 
