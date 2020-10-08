@@ -34,6 +34,13 @@ export const Slider = styled.div`
 export const Category = styled.p`
   height: 18px;
   margin: 12px 16px;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.39px;
+  text-align: center;
 
   ${props => {
     if(props.currentCategory === props.this ){
