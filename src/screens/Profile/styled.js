@@ -7,6 +7,7 @@ export const PageContainer = styled.div`
     align-items: center;
     font-family: 'Roboto', sans-serif;
 
+    padding-bottom: 50px;
 `
 
 export const ProfileInfoContainer = styled.div`
