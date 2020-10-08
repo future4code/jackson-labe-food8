@@ -34,6 +34,12 @@ export const Slider = styled.div`
 export const Category = styled.p`
   height: 18px;
   margin: 12px 16px;
+
+  ${props => {
+    if(props.currentCategory === props.this ){
+      return `color: #5cb646`
+    }
+  }}
 `
 
 export const TitleWrapper = styled.div`
