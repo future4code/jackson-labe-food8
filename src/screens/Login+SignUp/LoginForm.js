@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { login } from '../../services/user'
 import { useHistory } from 'react-router-dom'
-import { TextField, Button, InputAdornment } from '@material-ui/core'
+import { TextField, Button, InputAdornment, IconButton } from '@material-ui/core'
 import useForm from '../../hooks/useForm'
 import { InputContainer } from './styled'
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 export const LoginForm = () => {
 
@@ -12,6 +13,9 @@ export const LoginForm = () => {
         email: '',
         password: ''
     })
+    const [toggleVisibility, setToggleVisibility] = useState({
+        showPassword: false
+      })
 
     const onClickLogin = (event) => {
         event.preventDefault()
@@ -23,6 +27,10 @@ export const LoginForm = () => {
             resetState()
         }
     }
+
+    const handleClick = () => {
+          setToggleVisibility({ showPassword: !toggleVisibility.showPassword})
+      }
 
     const history = useHistory()
 
@@ -61,7 +69,7 @@ export const LoginForm = () => {
                         shrink: true,
                       }}
                     placeholder="Mínimo 6 caracteres"
-                    type="password"
+                    type={toggleVisibility.showPassword ? 'text' : 'password'}
                     id="password"
                     autoComplete="current-password"
                     inputProps={{
@@ -70,9 +78,9 @@ export const LoginForm = () => {
                     InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <VisibilityOffIcon
-                            edge="end"
-                            />
+                            <IconButton onClick={() => handleClick()}>
+                                {toggleVisibility.showPassword ? <Visibility edge="end"/> : <VisibilityOff edge="end"/>}
+                            </IconButton>
                           </InputAdornment>
                         ),
                       }}
@@ -88,7 +96,6 @@ export const LoginForm = () => {
                 Entrar
                 </Button>           
             </InputContainer>
-
-            </form>
+        </form>
     );
 }
