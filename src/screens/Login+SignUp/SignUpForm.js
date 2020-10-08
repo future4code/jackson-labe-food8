@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { TextField, Button, InputAdornment } from '@material-ui/core'
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import { TextField, Button, InputAdornment, IconButton } from '@material-ui/core'
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import useForm from '../../hooks/useForm'
 
 import { signUp } from '../../services/user';
@@ -20,6 +21,10 @@ export const SignUpForm = props => {
         confirm: ''
     })
     const [errors, setErrors] = useState({})
+    const [toggleVisibility, setToggleVisibility] = useState({
+      showPassword: false,
+      showConfirm: false
+    })
 
     const history = useHistory()
 
@@ -31,6 +36,15 @@ export const SignUpForm = props => {
             goToSignUpAddress(history)
         }
         
+    }
+
+    const handleClick = (input) => {
+      if(input === 'showPassword'){
+        setToggleVisibility({ showPassword: !toggleVisibility.showPassword})
+      }
+      if(input === 'showConfirm'){
+        setToggleVisibility({ showConfirm: !toggleVisibility.showConfirm})
+      }
     }
  
     return (
@@ -91,7 +105,7 @@ export const SignUpForm = props => {
             name={'password'}
             onChange={handleInputChange}
             label={'Senha'}
-            type={'password'}
+            type={toggleVisibility.showPassword ? 'text' : 'password'}
             variant={'outlined'}
             fullWidth
             id="password"
@@ -100,9 +114,9 @@ export const SignUpForm = props => {
             InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <VisibilityOffIcon
-                    edge="end"
-                    />
+                    <IconButton onClick={() => handleClick('showPassword')}>
+                      {toggleVisibility.showPassword ? <Visibility edge="end"/> : <VisibilityOff edge="end"/>}
+                    </IconButton>
                   </InputAdornment>
                 ),
               }}
@@ -117,7 +131,7 @@ export const SignUpForm = props => {
             name={'confirm'}
             onChange={handleInputChange}
             label={'Confirmar'}
-            type={'password'}
+            type={toggleVisibility.showConfirm ? 'text' : 'password'}
             variant={'outlined'}
             fullWidth
             id="confirmpassword"
@@ -126,9 +140,9 @@ export const SignUpForm = props => {
             InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <VisibilityOffIcon
-                    edge="end"
-                    />
+                    <IconButton onClick={() => handleClick('showConfirm')}>
+                      {toggleVisibility.showConfirm ? <Visibility edge="end"/> : <VisibilityOff edge="end"/>}
+                    </IconButton>
                   </InputAdornment>
                 ),
               }}
