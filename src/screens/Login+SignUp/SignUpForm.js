@@ -4,10 +4,9 @@ import { TextField, Button, InputAdornment } from '@material-ui/core'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import useForm from '../../hooks/useForm'
 
-import { signup } from '../../services/user';
-import { goToAddress } from '../../routes/Coordinator'
+import { signUp } from '../../services/user';
 import { validate, TextDanger } from './validate';
-import { goToSignUpAddress, goToSignUp } from '../../routes/Coordinator'
+import { goToSignUpAddress } from '../../routes/Coordinator'
 
 
 
@@ -27,9 +26,9 @@ export const SignUpForm = props => {
     const onClickSignup = (event) => {
         event.preventDefault()
         if(validate(form,setErrors)){
-            signup(form, history)
+            signUp(form, history)
             resetState()
-            goToAddress(history)
+            goToSignUpAddress(history)
         }
         
     }

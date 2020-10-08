@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
 
 export const Form = styled.form`
     display: flex;
@@ -51,7 +51,7 @@ export const Button = styled.button`
     border-radius: 2px;
     background-color: #5cb646;
 
-    font-family: Roboto, sans-serif:
+    font-family: Roboto, sans-serif;
     font-size: 16px;
 
     &:hover {

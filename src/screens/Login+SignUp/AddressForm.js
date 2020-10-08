@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { Container, Typography, TextField, Button, InputAdornment, IconButton } from '@material-ui/core'
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import React from 'react'
+import { TextField, Button } from '@material-ui/core'
 import { addAddress } from '../../services/user';
 import useForm from '../../hooks/useForm'
 import { useHistory } from 'react-router-dom'

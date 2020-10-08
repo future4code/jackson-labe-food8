@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { baseUrl } from '../constants/urls'
-import { goToFeed, goToProfile, goToLogin, goToSignUpAddress } from '../routes/Coordinator'
+import { goToFeed, goToProfile, goToLogin, goToSignUpAddress, goToSignUp } from '../routes/Coordinator'
 
 export const login = (body, history) => {
     axios.post(`${baseUrl}login`, body)
@@ -21,8 +21,12 @@ export const signUp = (body, history) => {
         goToSignUpAddress(history)
     })
     .catch((err) => {
-        console.log(err)
-        alert('Erro ao registrar-se, tente novamente!')
+        if(err.message.includes('409')){
+            alert('Usuário já existente!')
+        } else {
+            alert('Erro ao registrar-se, tente novamente!')
+        }
+        goToSignUp(history)
     })
 }
 
