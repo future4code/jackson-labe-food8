@@ -11,6 +11,9 @@ import useForm from '../../hooks/useForm';
 
 import { useValidations } from '../../hooks/useValidations'
 
+import NavBar from '../../components/NavBar/NavBar'
+
+
 
 const RestaurantPage = () => {
 
@@ -76,11 +79,15 @@ const RestaurantPage = () => {
 
     const clickButtonRm = (item) =>{
         let array = JSON.parse(localStorage.getItem("all"))|| [];
+        console.log("Item:", item)
+        
         for(let i = 0; i <= array.length; i++){
-            if(array[i] && array[i].id && item.id === array[i].id){
+            if(array[i] && array[i].id && item === array[i].id){
                 array.splice(i, 2)
+                console.log("bateu aqui")
             }
         }
+        console.log("array:", array)
         localStorage.setItem("all", JSON.stringify(array));
     };
 
@@ -168,6 +175,7 @@ const RestaurantPage = () => {
             })
             }
             <SimpleModal click={clickButtonCard} stateCard={visibilityCard}/>
+            <NavBar/>
         </div>
     )
 }
