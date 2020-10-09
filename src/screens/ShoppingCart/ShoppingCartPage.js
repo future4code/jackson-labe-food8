@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
 
-
 // hooks:
 import useRequestData from '../../hooks/useRequestData'
 import { useValidations } from '../../hooks/useValidations'
 
 import NavBar from '../../components/NavBar/NavBar'
+import CardProduct from '../../components/CardProduct/CardProduct'
 
 import {AddressInfoContainer, TextContainer, GrayText, Info} from '../../assets/Styled/styled-text'
 
@@ -21,7 +21,7 @@ const ShoppingCartPage = (props) => {
     const pathParams = useParams();
     const [orderList, setOrderList] = useState()
 
-    const requestPostOrder = () =>{
+    const requestPostOrder = () => {
         const body = {
             products: pathParams.state
         }
@@ -43,13 +43,24 @@ const ShoppingCartPage = (props) => {
 
             {!pathParams && <h5>Carrinho vazio</h5>}
             
-            {array && array.map( (item) => {
+            {/* {info.name && <div>{info.name}</div> }
+                        {typeof info === "string" && <div>{info}</div>} */}
+
+            {array && array.map( (info) => {
+                if (info.name) {
                 return (
-                    <div>
-                        {item.name && <div>{item.name}</div> }
-                        {typeof item === "string" && <div>{item}</div>}
-                    </div>
+                    <CardProduct
+                    img={info.photoUrl} 
+                    price={info.price} 
+                    description={info.description} 
+                    idKey={info.id} 
+                    name={info.name}
+                    all={info}
+                    qtde={typeof info === "string" && info}
+                    >
+                    </CardProduct>
                 )
+                }
             })}
 
             <NavBar section={'shoppingCart'}/>
