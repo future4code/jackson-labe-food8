@@ -27,26 +27,6 @@ const ShoppingCartPage = (props) => {
     const [orderList, setOrderList] = useState();
     const { form, handleInputChange, resetState } = useForm({cash: "", creditcard: ""})
 
-    // const [restaurantId, setRestaurantId] = useState()
-    // const [restaurant, setRestaurant] = useState()
-
-    // useEffect (() => {
-    //     setRestaurantId(localStorage.getItem('restaurantId'))
-
-    //     axios
-    //     .get(`${baseUrl}restaurants/${restaurantId}`, {
-    //         headers: {
-    //             auth: localStorage.getItem('token')
-    //         }
-    //     })
-    //     .then((response) =>{
-    //         setRestaurant(response.data);
-    //     })
-    //     .catch((error) =>{
-    //         alert(error.message)
-    //     })
-    // }, [])
-
     const restaurantId = localStorage.getItem('restaurantId')
     const restaurantData = useRequestData({}, `restaurants/${restaurantId}`)
     const restaurant = restaurantData && restaurantData.restaurant
@@ -59,6 +39,7 @@ const ShoppingCartPage = (props) => {
     }
 
     let array = JSON.parse(localStorage.getItem("all")) || []
+
 
     return (
         <div>
@@ -81,7 +62,8 @@ const ShoppingCartPage = (props) => {
             </div>}
 
 
-            {array && array.map( (info) => {
+            {array && array.map( (info, index) => {
+            
                 if (info.name) {
                 return (
                     <CardProduct
@@ -92,14 +74,20 @@ const ShoppingCartPage = (props) => {
                     idKey={info.id} 
                     name={info.name}
                     all={info}
-                    qtde={(typeof info === "string")? info : "" }
+                    qtde={array[index+1]}
                     >
                     </CardProduct>
                 )
                 }
             })}
 
-            </>
+            {restaurant && 
+                <div>
+            Frete R${restaurant.shipping},00
+                </div>}
+
+                <div>SUBTOTAL: {}</div>
+
             <SectionTitle>Forma de pagamento</SectionTitle>
             <form>
                 <input 
@@ -122,12 +110,6 @@ const ShoppingCartPage = (props) => {
                 <label form="creditCard">Cartão de crédito</label>
             </form>
             <Button>Confirmar</Button>
-
-
-            {restaurant && 
-            <div>
-           Frete R${restaurant.shipping},00
-            </div>}
 
 
             <NavBar section={'shoppingCart'}/>
