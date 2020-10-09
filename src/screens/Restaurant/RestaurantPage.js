@@ -116,11 +116,11 @@ const RestaurantPage = () => {
                         <P>{item}</P>
                         <Hr/>
                         <div>
-                            {menu.map((info) =>{
+                            {menu.map((info, index) =>{
                                 if(info.category === item){
                                     return( 
                                         <CardProduct 
-                                            img={info.photoUrl} 
+                                            img={info.photoUrl}
                                             price={info.price} 
                                             description={info.description} 
                                             idKey={info.id} 

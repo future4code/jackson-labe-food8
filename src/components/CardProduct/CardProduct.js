@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
-import { Button, DivButton, Hug, DivName, DivDesc, DivPrice, DivQtde, ContainerQtd } from './Styles';
+import { Button, ButtonRemove, DivButton, Hug, DivName, DivDesc, DivPrice, DivQtde, ContainerQtd } from './Styles';
 import handleMoney from '../../functions/handleMoney';
 
 
@@ -71,7 +71,8 @@ const useStyles = makeStyles ({
                 <DivName>
                   {props.name}
                 </DivName>
-                <DivQtde >{props.qtde}</DivQtde>
+                {props.page === 'cart'?<DivQtde >{props.qtde}</DivQtde>: '' }
+                
               </ContainerQtd>
               <DivDesc>
                 {props.description}
