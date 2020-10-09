@@ -75,7 +75,7 @@ const useStyles = makeStyles ({
                 {props.description}
               </DivDesc>
               <DivPrice>
-                {handleMoney(props.price)},00
+                {handleMoney(props.price)}
               </DivPrice>
               <DivButton>
                 <Button id={props.idKey} onClick={()=>button(props.idKey, props.all)}>Adicionar</Button>
