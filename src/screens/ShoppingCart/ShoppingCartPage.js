@@ -14,6 +14,7 @@ import CardProduct from '../../components/CardProduct/CardProduct'
 import {AddressInfoContainer, TextContainer, GrayText, Info, SectionTitle} from '../../assets/Styled/styled-text';
 import { Button } from '../../assets/Styled/styled-forms'
 import useForm from '../../hooks/useForm'
+import handleMoney from '../../functions/handleMoney'
 
 
 const ShoppingCartPage = (props) => {
@@ -40,6 +41,17 @@ const ShoppingCartPage = (props) => {
 
     let array = JSON.parse(localStorage.getItem("all")) || []
 
+    const calcTotal = () => {
+        const newArray = array.map((info, index) => {
+            if(info.name) {
+                return (info.price*array[index+1])
+            }
+        }).filter((info) => {
+            return info !== undefined
+        }).reduce((total, num) => { return total + num})
+
+        return handleMoney(newArray)
+    }
 
     return (
         <div>
@@ -86,7 +98,7 @@ const ShoppingCartPage = (props) => {
             Frete R${restaurant.shipping},00
                 </div>}
 
-                <div>SUBTOTAL: {}</div>
+                <div>SUBTOTAL: {calcTotal()}</div>
 
             <SectionTitle>Forma de pagamento</SectionTitle>
             <form>
