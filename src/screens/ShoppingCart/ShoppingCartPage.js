@@ -16,6 +16,8 @@ import { Button } from '../../assets/Styled/styled-forms'
 import useForm from '../../hooks/useForm'
 import handleMoney from '../../functions/handleMoney'
 
+import {placeOrder} from '../../services/orders'
+import { PageContainer } from '../Profile/styled';
 
 const ShoppingCartPage = (props) => {
 
@@ -26,7 +28,8 @@ const ShoppingCartPage = (props) => {
 
     const pathParams = useParams();
     const [orderList, setOrderList] = useState();
-    const { form, handleInputChange, resetState } = useForm({cash: "", creditcard: ""})
+    // const { form, handleInputChange, resetState } = useForm({cash: "", creditcard: ""})
+    const [selectedOption, setSelectedOption] = useState()
 
     const restaurantId = localStorage.getItem('restaurantId')
     const restaurantData = useRequestData({}, `restaurants/${restaurantId}`)
@@ -53,8 +56,36 @@ const ShoppingCartPage = (props) => {
         return handleMoney(newArray)
     }
 
+    const submitOrder = (event) => {
+        event.preventDefault()
+
+        const selectedProducts = array.map((info, index) => {
+            if(info.name) {
+                return {
+                    "id": info.id,
+                    "quantity": array[index+1]
+                }
+            }}).filter( info => { return info !== undefined })
+
+
+        const selectedMethod = selectedOption
+
+        const body = {
+            products: selectedProducts,
+            paymentMethod: selectedMethod
+        }
+
+        console.log("Body:", body)
+
+        placeOrder(restaurantId, body)
+    }
+
+    const handleOnChange = (event) => {
+        setSelectedOption(event.target.value)
+    }
+
     return (
-        <div>
+        <PageContainer>
             <AddressInfoContainer>
                 <TextContainer>
                 <GrayText>Endereço de entrega</GrayText>
@@ -101,31 +132,32 @@ const ShoppingCartPage = (props) => {
                 <div>SUBTOTAL: {calcTotal()}</div>
 
             <SectionTitle>Forma de pagamento</SectionTitle>
-            <form>
+
+            <form onSubmit={submitOrder}>
                 <input 
-                 onChange={handleInputChange}
                  type="radio"
                  name="radioButton"
-                 value={form.cash}
+                 value={"cash"}
                  id="cash"
                  required
+                 onChange={handleOnChange}
                 />
                 <label for="cash">Dinheiro</label><br/>
                 <input 
-                 onChange={handleInputChange} 
                  type="radio" 
                  name="radioButton"
                  id="creditCard"
-                 value={form.creditcard} 
+                 value={"creditcard"} 
                  required
+                 onChange={handleOnChange}
                 />
                 <label form="creditCard">Cartão de crédito</label>
+                <Button>Confirmar</Button>
             </form>
-            <Button>Confirmar</Button>
 
 
             <NavBar section={'shoppingCart'}/>
-        </div>
+        </PageContainer>
     )
 }
 
