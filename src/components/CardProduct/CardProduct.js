@@ -39,17 +39,33 @@ const useStyles = makeStyles ({
   export default function CardProduct(props) {
     const classes = useStyles();
 
+    const clickButtonAdd = (item) =>{
+      setVisibilityCard(!visibilityCard);
+      let newArray = [...allDetails,item];
+      setAllDetails([...newArray]);
+    };
+
+    const clickButtonRm = (itemId) =>{
+      let array = JSON.parse(localStorage.getItem("all"))|| [];
+      
+      for(let i = 0; i <= array.length; i++){
+          if(array[i] && array[i].id && itemId === array[i].id){
+              array.splice(i, 2)
+          }
+      }
+      localStorage.setItem("all", JSON.stringify(array));
+    };
+
     const button = (id, details) =>{
       const button = document.getElementById(id)
       const infoButton = button.textContent;
       if(infoButton === "Adicionar"){
           button.innerText="Remover"
-          props.clickButtonAdd(details)
-          console.log(id, details)
+          clickButtonAdd(details)
       }
       else{
           button.innerText="Adicionar"
-          props.clickButtonRm(id)
+          clickButtonRm(id)
       }
     };
       

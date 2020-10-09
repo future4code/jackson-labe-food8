@@ -57,16 +57,16 @@ function rand() {
         <form id={"modal"}>
             <div>
                 <TextField 
-                    value={form.quantity} 
-                    onChange={handleInputChange} 
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="quantity" 
-                    type="number" 
-                    id="quantity"
-                    min="1"
+                  value={form.quantity} 
+                  onChange={handleInputChange} 
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="quantity" 
+                  type="number" 
+                  id="quantity"
+                  min="1"
                 />
             </div>
             <p onClick={()=>props.click(form.quantity)} className={classes.text}>Adicionar ao carrinho</p>
