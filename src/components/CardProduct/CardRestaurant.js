@@ -14,6 +14,7 @@ const useStyles = makeStyles({
       borderRadius: 8,
       borderBottom: 'none',
       boxShadow: 'none',
+      marginTop: 17,
     },
     main: {
       display: 'flex',
