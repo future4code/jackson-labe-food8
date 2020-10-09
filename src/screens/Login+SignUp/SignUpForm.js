@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Container, Typography, TextField, Button, InputAdornment, IconButton } from '@material-ui/core'
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import { TextField, Button, InputAdornment, IconButton } from '@material-ui/core'
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import useForm from '../../hooks/useForm'
-import { signup } from '../../services/user';
-import { goToAddress, goToSignUp } from '../../routes/Coordinator'
+
+import { signUp } from '../../services/user';
+import { validate, TextDanger } from './validate';
+import { goToSignUpAddress } from '../../routes/Coordinator'
+
+
 
 
 export const SignUpForm = props => {
@@ -16,20 +21,31 @@ export const SignUpForm = props => {
         password: '',
         confirm: ''
     })
+    const [errors, setErrors] = useState({})
+    const [toggleVisibility, setToggleVisibility] = useState({
+      showPassword: false,
+      showConfirm: false
+    })
 
     const history = useHistory()
 
     const onClickSignup = (event) => {
         event.preventDefault()
-        const element = document.getElementById('signup-form')
-        const isValid = element.checkValidity()
-        element.reportValidity()
-        if(isValid){
-            signup(form, history)
+        if(validate(form,setErrors)){
+            signUp(form, history)
             resetState()
-            goToAddress(history)
+            goToSignUpAddress(history)
         }
         
+    }
+
+    const handleClick = (input) => {
+      if(input === 'showPassword'){
+        setToggleVisibility({ showPassword: !toggleVisibility.showPassword})
+      }
+      if(input === 'showConfirm'){
+        setToggleVisibility({ showConfirm: !toggleVisibility.showConfirm})
+      }
     }
  
     return (
@@ -45,12 +61,12 @@ export const SignUpForm = props => {
             required
             autoFocus
             margin={'normal'}
-            placeholder="Nome"
             InputLabelProps={{
                 shrink: true,
               }}
             placeholder="Nome e sobrenome"
             />
+            <TextDanger>{errors.name}</TextDanger>
             <TextField 
             value={form.email}
             name={'email'}
@@ -67,6 +83,7 @@ export const SignUpForm = props => {
               }}
             placeholder="email@email.com"
             />
+            <TextDanger>{errors.email}</TextDanger>
             <TextField 
             value={form.cpf}
             name={'cpf'}
@@ -83,12 +100,13 @@ export const SignUpForm = props => {
               }}
             placeholder="000.000.000-00"
             />
+            <TextDanger>{errors.cpf}</TextDanger>
             <TextField 
             value={form.password}
             name={'password'}
             onChange={handleInputChange}
             label={'Senha'}
-            type={'password'}
+            type={toggleVisibility.showPassword ? 'text' : 'password'}
             variant={'outlined'}
             fullWidth
             id="password"
@@ -97,9 +115,9 @@ export const SignUpForm = props => {
             InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <VisibilityOffIcon
-                    edge="end"
-                    />
+                    <IconButton onClick={() => handleClick('showPassword')}>
+                      {toggleVisibility.showPassword ? <Visibility edge="end"/> : <VisibilityOff edge="end"/>}
+                    </IconButton>
                   </InputAdornment>
                 ),
               }}
@@ -108,12 +126,13 @@ export const SignUpForm = props => {
               }}
             placeholder="Mínimo 6 caracteres"
             />
+            <TextDanger>{errors.password}</TextDanger>
             <TextField 
             value={form.confirm}
             name={'confirm'}
             onChange={handleInputChange}
             label={'Confirmar'}
-            type={'password'}
+            type={toggleVisibility.showConfirm ? 'text' : 'password'}
             variant={'outlined'}
             fullWidth
             id="confirmpassword"
@@ -122,9 +141,9 @@ export const SignUpForm = props => {
             InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <VisibilityOffIcon
-                    edge="end"
-                    />
+                    <IconButton onClick={() => handleClick('showConfirm')}>
+                      {toggleVisibility.showConfirm ? <Visibility edge="end"/> : <VisibilityOff edge="end"/>}
+                    </IconButton>
                   </InputAdornment>
                 ),
               }}
@@ -133,6 +152,7 @@ export const SignUpForm = props => {
               }}
             placeholder="Confirme senha anterior"
             />
+            <TextDanger>{errors.confirm}</TextDanger>
             <Button
              type="submit"
              variant="contained"

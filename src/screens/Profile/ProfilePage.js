@@ -1,15 +1,16 @@
 import React from 'react'
-import styled from 'styled-components'
 import NavBar from '../../components/NavBar/NavBar'
 
 import { useHistory } from 'react-router-dom'
 import {goToEditProfile, goToEditAddress} from '../../routes/Coordinator'
 
 // hooks:
-import { useProtectedPage } from '../../hooks/useProtection'
 import useRequestData from '../../hooks/useRequestData'
+import useValidations from '../../hooks/useValidations'
 
+//functions:
 import convertTimestampToDate from '../../functions/convertTime'
+import handleMoney from '../../functions/handleMoney'
 
 //images:
 import editIcon from '../../assets/edit.svg'
@@ -21,7 +22,7 @@ import {SectionTitle, AddressInfoContainer, GrayText, SimpleText} from '../../as
 
 const ProfilePage = () => {
 
-    useProtectedPage()
+    useValidations()
 
     const history = useHistory()
 
@@ -31,11 +32,24 @@ const ProfilePage = () => {
     const dataOrders = useRequestData({}, 'orders/history/')
     const orders = dataOrders && dataOrders.orders
 
+    const dataAddress = useRequestData({}, 'profile/address/')
+    const address = dataAddress && dataAddress.address
+
     const arrangeEditProfile = () => {
         goToEditProfile(history)
         localStorage.setItem('name', user.name)
         localStorage.setItem('email', user.email)
         localStorage.setItem('cpf', user.cpf)
+    }
+
+    const arrangeEditAddress = () => {
+        goToEditAddress(history)
+        localStorage.setItem('street', address.street)
+        localStorage.setItem('number', address.number)
+        localStorage.setItem('apartment', address.apartment)
+        localStorage.setItem('neighbourhood', address.neighbourhood)
+        localStorage.setItem('city', address.city)
+        localStorage.setItem('state', address.state)
     }
 
     if (!user || !orders) {
@@ -66,7 +80,7 @@ const ProfilePage = () => {
                 </TextContainer>
                     <EditImg 
                     src={editIcon}
-                    onClick = {() => goToEditAddress(history)}
+                    onClick = {() => arrangeEditAddress()}
                     />
             </AddressInfoContainer>
 
@@ -83,7 +97,7 @@ const ProfilePage = () => {
                 <TextContainer>
                     <GreenTitle>{order.restaurantName}</GreenTitle>
                     <DetailText>{convertTimestampToDate(order.createdAt)}</DetailText>
-                    <BoldText>SUBTOTAL R${order.totalPrice.toFixed(2).replace('.',',')}</BoldText>
+                    <BoldText>SUBTOTAL R${handleMoney(order.totalPrice)}</BoldText>
                 </TextContainer>
                 </OrderContainer>
                )

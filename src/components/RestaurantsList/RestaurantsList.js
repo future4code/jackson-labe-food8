@@ -7,6 +7,7 @@ const FeedContainer = styled.section`
     flex-direction: column;
     box-sizing: border-box;
     justify-content: center;
+    margin-bottom: 10vh;
 `
 
 const RestaurantsList = (props) => {

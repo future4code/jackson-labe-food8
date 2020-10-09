@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
 
+import { useValidations } from '../../hooks/useValidations'
+
 import NavBar from '../../components/NavBar/NavBar'
 
 
 const ShoppingCartPage = (props) => {
+
+    useValidations()
+
     const pathParams = useParams();
     const [orderList, setOrderList] = useState()
 

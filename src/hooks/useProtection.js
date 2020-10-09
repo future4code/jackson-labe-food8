@@ -1,6 +1,10 @@
 import { useHistory } from 'react-router-dom'
 import { useLayoutEffect } from 'react'
-import { goToFeed, goToLogin } from '../routes/Coordinator'
+import { goToFeed, goToLogin, goToSignUpAddress } from '../routes/Coordinator'
+
+import axios from 'axios'
+import { baseUrl } from '../constants/urls'
+
 
 export const useProtectedPage = () => {
   const history = useHistory()
@@ -22,4 +26,33 @@ export const useUnprotectedPage = () => {
         goToFeed(history)
       }
     }, [history])
+}
+
+
+export const useHasAddress = () => {
+
+  const history = useHistory()
+
+  useLayoutEffect (() => {
+    axios
+    .get(`${baseUrl}profile`, {
+        headers: {
+            auth: localStorage.getItem('token')
+        }
+    })
+
+    .then ( (response) => {
+        const user = response.data.user
+        const hasAddress = user && user.hasAddress
+
+      if (!hasAddress) {
+          goToSignUpAddress(history)
+      }
+
+    }) 
+    .catch( (error) => {
+        console.log(error)
+    })
+  },[history] )
+
 }

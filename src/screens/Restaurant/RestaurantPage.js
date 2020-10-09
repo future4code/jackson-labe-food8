@@ -9,7 +9,13 @@ import { useProtectedPage } from '../../hooks/useProtection';
 import SimpleModal from './styled';
 import useForm from '../../hooks/useForm';
 
+import { useValidations } from '../../hooks/useValidations'
+
+
 const RestaurantPage = () => {
+
+    useValidations()
+
     const [restaurant, setRestaurant] = useState({});
     const [menu, setMenu] = useState([]);
     const token = localStorage.getItem("token");
@@ -94,8 +100,6 @@ const RestaurantPage = () => {
     const clickCart = () =>{
         
     };
-
-    useProtectedPage()
 
     useEffect(()=>{
       getCategories()

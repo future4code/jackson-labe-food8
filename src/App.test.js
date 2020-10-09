@@ -9,6 +9,7 @@ import RestaurantPage from './screens/Restaurant/RestaurantPage';
 
 import SignUpPage from './screens/Login+SignUp/SignUpPage';
 import SearchPage from './screens/SearchPage/SearchPage';
+import AddressPage from './screens/Login+SignUp/AddressPage';
 
 
 axios.get = jest.fn().mockResolvedValue()
@@ -166,4 +167,44 @@ describe('Teste da página de signup', () => {
       confirm: '123456'
     })
   })
+
+  describe('Teste da página de cadastro do endereço', () => {
+    test('cadastro do usuário', async () => {
+      axios.post = jest.fn().mockResolvedValue()
+  
+      render(<AddressPage/>)
+  
+      const ruaInput = screen.getByPlaceholderText('Rua/Av.')
+      expect(streetInput).toBeInTheDocument()
+  
+      const aptoInput = screen.getByPlaceholderText('Apto./Bloco')
+      expect(aptoInput).toBeInTheDocument()
+  
+      const bairroInput = screen.getByPlaceholderText('Bairro')
+      expect(bairroInput).toBeInTheDocument()
+  
+      const cidadeInput = screen.getByPlaceholderText('Cidade')
+      expect(cidadeInput).toBeInTheDocument()
+  
+      const estadoInput = screen.getByPlaceholderText('Estado')
+      expect(estadoInput).toBeInTheDocument()
+  
+      const button = screen.getByText('Criar')
+      expect(button).toBeInTheDocument()
+  
+      await userEvent.type(ruaInput, 'teste')
+      userEvent.type(aptoInput, 'teste')
+      userEvent.type(bairroInput, 'teste')
+      userEvent.type(cidadeInput, 'teste')
+      userEvent.type(buttonInput, 'teste')
+      userEvent.click(button)
+  
+      expect(axios.put).toHaveBeenCalledWith('https://us-central1-missao-newton.cloudfunctions.net/futureEatsA/address',  {
+        logradouro: 'teste',
+        complemento: 'teste',
+        bairro: 'teste',
+        cidade: 'teste',
+        estado: 'teste'
+      })
+    })
 })
