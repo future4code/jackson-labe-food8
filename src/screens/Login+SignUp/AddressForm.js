@@ -1,13 +1,21 @@
 import React from 'react'
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, makeStyles } from '@material-ui/core'
 import { addAddress } from '../../services/user';
 import useForm from '../../hooks/useForm'
 import { useHistory } from 'react-router-dom'
 import { goToSignUp } from '../../routes/Coordinator'
 
+const useStyles = makeStyles((theme) => ({
+
+  button: {
+    textTransform: 'none',
+  },
+}));
 
 
 export const AddressForm = () => {
+
+    const classes = useStyles()
 
     const {form, handleInputChange, resetState} = useForm({
       neighbourhood: "",
@@ -120,7 +128,7 @@ export const AddressForm = () => {
               }}
             placeholder="Estado"
             />
-            <Button
+            <Button className={classes.button}
              type="submit"
              variant="contained"
              color="primary"

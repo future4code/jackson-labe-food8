@@ -76,7 +76,9 @@ const RestaurantPage = () => {
     };
 
     const clickButtonRm = (itemId) =>{
-        let array = JSON.parse(localStorage.getItem("all"))|| [];        
+
+        let array = JSON.parse(localStorage.getItem("all"))|| [];
+        
         for(let i = 0; i <= array.length; i++){
             if(array[i] && array[i].id && itemId === array[i].id){
                 array.splice(i, 2)
