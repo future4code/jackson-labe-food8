@@ -29,6 +29,10 @@ const ShoppingCartPage = (props) => {
 
     let array = JSON.parse(localStorage.getItem("all")) || []
 
+    const dkdokd = () => {
+        
+    }
+
 
 
     return (
