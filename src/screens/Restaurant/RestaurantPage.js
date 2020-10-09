@@ -7,12 +7,8 @@ import CardRestaurant from '../../components/CardProduct/CardRestaurant'
 import { baseUrl } from '../../constants/urls';
 import SimpleModal from './styled';
 import useForm from '../../hooks/useForm';
-
 import { useValidations } from '../../hooks/useValidations'
-
 import NavBar from '../../components/NavBar/NavBar'
-
-
 
 const RestaurantPage = () => {
 
@@ -59,6 +55,18 @@ const RestaurantPage = () => {
         setVisibilityCard(!visibilityCard);
         let newArray = [...allDetails,item];
         setAllDetails([...newArray]);
+        localStorage.setItem("restaurantId", restaurant.id)
+    };
+  
+    const clickButtonRm = (itemId) =>{
+      let array = JSON.parse(localStorage.getItem("all"))|| [];
+      
+      for(let i = 0; i <= array.length; i++){
+          if(array[i] && array[i].id && itemId === array[i].id){
+              array.splice(i, 2)
+          }
+      }
+      localStorage.setItem("all", JSON.stringify(array));
     };
 
     const clickButtonCard = (qtd) =>{
@@ -73,18 +81,6 @@ const RestaurantPage = () => {
             return <CardProduct qtde={qtd}/>
         }
         resetState()
-    };
-
-    const clickButtonRm = (itemId) =>{
-
-        let array = JSON.parse(localStorage.getItem("all"))|| [];
-        
-        for(let i = 0; i <= array.length; i++){
-            if(array[i] && array[i].id && itemId === array[i].id){
-                array.splice(i, 2)
-            }
-        }
-        localStorage.setItem("all", JSON.stringify(array));
     };
 
     useEffect(()=>{

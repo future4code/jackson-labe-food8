@@ -39,13 +39,13 @@ const useStyles = makeStyles ({
   export default function CardProduct(props) {
     const classes = useStyles();
 
+
     const button = (id, details) =>{
       const button = document.getElementById(id)
       const infoButton = button.textContent;
       if(infoButton === "Adicionar"){
           button.innerText="Remover"
           props.clickButtonAdd(details)
-          console.log(id, details)
       }
       else{
           button.innerText="Adicionar"
