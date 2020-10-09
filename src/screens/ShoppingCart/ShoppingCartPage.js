@@ -28,7 +28,6 @@ const ShoppingCartPage = (props) => {
 
     const pathParams = useParams();
     const [orderList, setOrderList] = useState();
-    // const { form, handleInputChange, resetState } = useForm({cash: "", creditcard: ""})
     const [selectedOption, setSelectedOption] = useState()
 
     const restaurantId = localStorage.getItem('restaurantId')
@@ -137,12 +136,12 @@ const ShoppingCartPage = (props) => {
                 <input 
                  type="radio"
                  name="radioButton"
-                 value={"cash"}
-                 id="cash"
+                 value={"money"}
+                 id="money"
                  required
                  onChange={handleOnChange}
                 />
-                <label for="cash">Dinheiro</label><br/>
+                <label for="money">Dinheiro</label><br/>
                 <input 
                  type="radio" 
                  name="radioButton"
