@@ -33,6 +33,25 @@ export const Button = styled.button`
     }
 `;
 
+export const ButtonRemove = styled.button`
+    border-radius: 8px 0px 8px 0px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #e02020;
+    background-color: transparent;
+    width: 90px;
+    height: 31px;
+    color: #e02020;
+    align-self: flex-end;
+    margin-top: -17px;
+    position: relative;
+    z-index: 3;
+
+    :focus{
+        outline:none;
+    }
+`;
+
 export const ContainerQtd = styled.div`
     display: flex;
     justify-content: space-between;

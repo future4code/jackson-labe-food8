@@ -50,13 +50,14 @@ const ShoppingCartPage = (props) => {
                 if (info.name) {
                 return (
                     <CardProduct
+                    page={'cart'}
                     img={info.photoUrl} 
                     price={info.price} 
                     description={info.description} 
                     idKey={info.id} 
                     name={info.name}
                     all={info}
-                    qtde={typeof info === "string" && info}
+                    qtde={(typeof info === "string")? info : "" }
                     >
                     </CardProduct>
                 )
