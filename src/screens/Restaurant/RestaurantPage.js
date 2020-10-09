@@ -1,9 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
+import { Hr, P, DivButton, Button } from '../../components/CardProduct/Styles';
+import CardProduct from '../../components/CardProduct/CardProduct';
+import CardRestaurant from '../../components/CardProduct/CardRestaurant'
 import { baseUrl } from '../../constants/urls';
 import { useProtectedPage } from '../../hooks/useProtection';
 import SimpleModal from './styled';
+import useForm from '../../hooks/useForm';
 
 import { useValidations } from '../../hooks/useValidations'
 
@@ -20,6 +24,8 @@ const RestaurantPage = () => {
     const [visibilityCard, setVisibilityCard] = useState(false);
     const [allDetails, setAllDetails] = useState([]);
     const pathParams = useParams();
+    const { resetState } = useForm()
+
 
     const requestGetDetail = (id) =>{
         const headers = {
@@ -54,7 +60,7 @@ const RestaurantPage = () => {
     };
     
 
-    const clickButtonCard = (qtd, reset) =>{
+    const clickButtonCard = (qtd) =>{
         const element = document.getElementById('quantity')
         const isValid = element.checkValidity()
         element.reportValidity()
@@ -63,38 +69,35 @@ const RestaurantPage = () => {
             let newArray = [...allDetails, qtd]
             localStorage.setItem("all", JSON.stringify(newArray));
             setAllDetails([...newArray]);
+            return <CardProduct qtde={qtd}/>
         }
-        reset()
+        resetState()
     };
 
-    const clickButtonRm = (idItem) =>{
+    const clickButtonRm = (item) =>{
         let array = JSON.parse(localStorage.getItem("all"))|| [];
-        array.splice(array.indexOf(idItem), 2);
-        let arrayId = array.map((some) =>{
-                return some.id
-        })
-        for(let i = 0; i <= arrayId.length; i++){
-            if(idItem === arrayId){
+        for(let i = 0; i <= array.length; i++){
+            if(array[i] && array[i].id && item.id === array[i].id){
                 array.splice(i, 2)
             }
         }
         localStorage.setItem("all", JSON.stringify(array));
     };
 
-    const button = (it, details) =>{
-        const button = document.getElementById(it)
-        const infoButton = button.textContent;
-        if(infoButton === "Adicionar"){
-            button.innerText="Remover"
-            clickButtonAdd(details)
-        }
-        else{
-            button.innerText="Adicionar"
-            clickButtonRm(it)
-        }
-    };
+    // const button = (it, details) =>{
+    //     const button = document.getElementById(it)
+    //     const infoButton = button.textContent;
+    //     if(infoButton === "Adicionar"){
+    //         button.innerText="Remover";
+    //         clickButtonAdd(details)
+    //     }
+    //     else{
+    //         button.innerText="Adicionar"
+    //         clickButtonRm(it)
+    //     }
+    // };
 
-    const clickCart = (all, selection) =>{
+    const clickCart = () =>{
         
     };
 
@@ -117,31 +120,45 @@ const RestaurantPage = () => {
 
     return (
         <div>
-            <img src={restaurant.photoUrl}/>
-            <p>{restaurant.name}</p>
-            <p>{restaurant.category}</p>
-            <p>{[restaurant.deliveryTime - 10]} - {restaurant.deliveryTime} min</p>
-            <p>Frete R${restaurant.shipping},00</p>
-            <p>{restaurant.address}</p>
+            <CardRestaurant 
+                imgObject={restaurant.logoUrl} 
+                restName={restaurant.name} 
+                restCategory={restaurant.category} 
+                restDeliveryTime={restaurant.deliveryTime} 
+                restShipping={restaurant.shipping}
+                restAdress={restaurant.address}
+            />
             {filteredCategories.map((item) =>{
                 return (
                    <div>
-                        <div>{item}</div>
-                        <hr/>
+                        <P>{item}</P>
+                        <Hr/>
                         <div>
                             {menu.map((info) =>{
                                 if(info.category === item){
-                                    return(
-                                        <div>
-                                            <div>
-                                                <img src={info.photoUrl}/>
-                                                <p>{info.name}</p>
-                                                <p>{info.description}</p>
-                                                <div>R${info.price}</div>
-                                                <button id={info.id} onClick={()=>button(info.id,info)}>Adicionar</button>
-                                            </div>
-                                        </div>
+                                    return( 
+                                        <CardProduct 
+                                            img={info.photoUrl} 
+                                            price={info.price} 
+                                            description={info.description} 
+                                            idKey={info.id} 
+                                            name={info.name}
+                                            all={info}
+                                            clickButtonAdd={clickButtonAdd}
+                                            clickButtonRm={clickButtonRm}
+                                        />
                                     )
+                                    // (
+                                    //     <div>
+                                    //         <div>
+                                    //             <img src={info.photoUrl}/>
+                                    //             <p>{info.name}</p>
+                                    //             <p>{info.description}</p>
+                                    //             <div>R${info.price}</div>
+                                    //             <button id={info.id} onClick={()=>button(info.id,info)}>Adicionar</button>
+                                    //         </div>
+                                    //     </div>
+                                    // )
                                 }
                             })}
                         </div>
@@ -156,3 +173,4 @@ const RestaurantPage = () => {
 }
 
 export default RestaurantPage
+
