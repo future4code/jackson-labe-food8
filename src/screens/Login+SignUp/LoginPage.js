@@ -14,6 +14,7 @@ import { LogoContainer } from './styled'
 import Logo  from '../../assets/logo-future-eats-invert.png'
 
 const MainTheme = createMuiTheme({
+  
     palette: {
       primary: {
         main: primaryColor
@@ -21,8 +22,10 @@ const MainTheme = createMuiTheme({
       secondary: {
         main: "#474749"
       }
-    }
+    },
   });
+
+
   
 
 

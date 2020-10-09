@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { TextField, Button, InputAdornment, IconButton } from '@material-ui/core'
+import { TextField, Button, InputAdornment, IconButton, makeStyles } from '@material-ui/core'
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import useForm from '../../hooks/useForm'
@@ -9,10 +9,17 @@ import { signUp } from '../../services/user';
 import { validate, TextDanger } from './validate';
 import { goToSignUpAddress } from '../../routes/Coordinator'
 
+const useStyles = makeStyles((theme) => ({
 
+  button: {
+    textTransform: 'none',
+  },
+}));
 
 
 export const SignUpForm = props => {
+    
+    const classes = useStyles()
 
     const {form, handleInputChange, resetState} = useForm({
         name: '',
@@ -153,7 +160,7 @@ export const SignUpForm = props => {
             placeholder="Confirme senha anterior"
             />
             <TextDanger>{errors.confirm}</TextDanger>
-            <Button
+            <Button className={classes.button}
              type="submit"
              variant="contained"
              color="primary"
