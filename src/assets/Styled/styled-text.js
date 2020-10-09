@@ -20,6 +20,10 @@ export const AddressInfoContainer = styled.div`
     justify-content: space-between;
 `
 
+export const TextContainer = styled.div`
+    margin: 16px;
+`
+
 export const GreenTitle = styled.div`
     color: #5cb646;
     letter-spacing: -0.39px;
@@ -33,4 +37,8 @@ export const GrayText = styled.div`
 
 export const SimpleText = styled.div`
     margin-top: 28px;
+`
+
+export const Info = styled.div`
+    margin: 8px 0 8px 0;
 `
