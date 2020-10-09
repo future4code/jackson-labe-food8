@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
+
+import axios from 'axios'
+import {baseUrl} from '../../constants/urls'
 
 // hooks:
 import useRequestData from '../../hooks/useRequestData'
@@ -24,6 +27,31 @@ const ShoppingCartPage = (props) => {
     const [orderList, setOrderList] = useState();
     const { form, handleInputChange, resetState } = useForm({cash: "", creditcard: ""})
 
+    // const [restaurantId, setRestaurantId] = useState()
+    // const [restaurant, setRestaurant] = useState()
+
+    // useEffect (() => {
+    //     setRestaurantId(localStorage.getItem('restaurantId'))
+
+    //     axios
+    //     .get(`${baseUrl}restaurants/${restaurantId}`, {
+    //         headers: {
+    //             auth: localStorage.getItem('token')
+    //         }
+    //     })
+    //     .then((response) =>{
+    //         setRestaurant(response.data);
+    //     })
+    //     .catch((error) =>{
+    //         alert(error.message)
+    //     })
+    // }, [])
+
+    const restaurantId = localStorage.getItem('restaurantId')
+    const restaurantData = useRequestData({}, `restaurants/${restaurantId}`)
+    const restaurant = restaurantData && restaurantData.restaurant
+
+
     const requestPostOrder = () => {
         const body = {
             products: pathParams.state
@@ -31,8 +59,6 @@ const ShoppingCartPage = (props) => {
     }
 
     let array = JSON.parse(localStorage.getItem("all")) || []
-
-
 
     return (
         <div>
@@ -46,25 +72,33 @@ const ShoppingCartPage = (props) => {
 
             {!pathParams && <h5>Carrinho vazio</h5>}
             
-            {/* {info.name && <div>{info.name}</div> }
-                        {typeof info === "string" && <div>{info}</div>} */}
-            <>
+
+            {restaurant && 
+            <div>
+            <div>{restaurant.name}</div>
+            <div>{restaurant.address}</div>
+            <div>{restaurant.deliveryTime - 10} - {restaurant.deliveryTime} min</div>
+            </div>}
+
+
             {array && array.map( (info) => {
                 if (info.name) {
                 return (
                     <CardProduct
+                    page={'cart'}
                     img={info.photoUrl} 
                     price={info.price} 
                     description={info.description} 
                     idKey={info.id} 
                     name={info.name}
                     all={info}
-                    qtde={typeof info === "string" && info}
+                    qtde={(typeof info === "string")? info : "" }
                     >
                     </CardProduct>
                 )
                 }
             })}
+
             </>
             <SectionTitle>Forma de pagamento</SectionTitle>
             <form>
@@ -88,6 +122,14 @@ const ShoppingCartPage = (props) => {
                 <label form="creditCard">Cartão de crédito</label>
             </form>
             <Button>Confirmar</Button>
+
+
+            {restaurant && 
+            <div>
+           Frete R${restaurant.shipping},00
+            </div>}
+
+
             <NavBar section={'shoppingCart'}/>
         </div>
     )

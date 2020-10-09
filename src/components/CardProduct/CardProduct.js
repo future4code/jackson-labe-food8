@@ -3,8 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+
 import { Button, DivButton, Hug, DivName, DivDesc, DivPrice, DivQtde, ContainerQtd } from './Styles';
 import handleMoney from '../../functions/handleMoney';
+
 
 
 const useStyles = makeStyles ({
@@ -78,7 +80,11 @@ const useStyles = makeStyles ({
                 {handleMoney(props.price)}
               </DivPrice>
               <DivButton>
+                {props.page === 'cart'? 
+                <ButtonRemove id={props.idKey}>Remover</ButtonRemove>:
                 <Button id={props.idKey} onClick={()=>button(props.idKey, props.all)}>Adicionar</Button>
+                }
+                
               </DivButton>
             </CardContent>
         </div>
