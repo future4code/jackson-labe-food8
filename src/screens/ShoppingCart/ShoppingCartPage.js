@@ -11,7 +11,9 @@ import { useValidations } from '../../hooks/useValidations'
 import NavBar from '../../components/NavBar/NavBar'
 import CardProduct from '../../components/CardProduct/CardProduct'
 
-import {AddressInfoContainer, TextContainer, GrayText, Info} from '../../assets/Styled/styled-text'
+import {AddressInfoContainer, TextContainer, GrayText, Info, SectionTitle} from '../../assets/Styled/styled-text';
+import { Button } from '../../assets/Styled/styled-forms'
+import useForm from '../../hooks/useForm'
 
 
 const ShoppingCartPage = (props) => {
@@ -22,7 +24,8 @@ const ShoppingCartPage = (props) => {
     const user = dataUser && dataUser.user
 
     const pathParams = useParams();
-    const [orderList, setOrderList] = useState()
+    const [orderList, setOrderList] = useState();
+    const { form, handleInputChange, resetState } = useForm({cash: "", creditcard: ""})
 
     // const [restaurantId, setRestaurantId] = useState()
     // const [restaurant, setRestaurant] = useState()
@@ -65,16 +68,18 @@ const ShoppingCartPage = (props) => {
                 {user && <Info>{user.address}</Info>}
                 </TextContainer>
             </AddressInfoContainer>
-
+            
 
             {!pathParams && <h5>Carrinho vazio</h5>}
             
+
             {restaurant && 
             <div>
             <div>{restaurant.name}</div>
             <div>{restaurant.address}</div>
             <div>{restaurant.deliveryTime - 10} - {restaurant.deliveryTime} min</div>
             </div>}
+
 
             {array && array.map( (info) => {
                 if (info.name) {
@@ -94,10 +99,36 @@ const ShoppingCartPage = (props) => {
                 }
             })}
 
+            </>
+            <SectionTitle>Forma de pagamento</SectionTitle>
+            <form>
+                <input 
+                 onChange={handleInputChange}
+                 type="radio"
+                 name="radioButton"
+                 value={form.cash}
+                 id="cash"
+                 required
+                />
+                <label for="cash">Dinheiro</label><br/>
+                <input 
+                 onChange={handleInputChange} 
+                 type="radio" 
+                 name="radioButton"
+                 id="creditCard"
+                 value={form.creditcard} 
+                 required
+                />
+                <label form="creditCard">Cartão de crédito</label>
+            </form>
+            <Button>Confirmar</Button>
+
+
             {restaurant && 
             <div>
            Frete R${restaurant.shipping},00
             </div>}
+
 
             <NavBar section={'shoppingCart'}/>
         </div>

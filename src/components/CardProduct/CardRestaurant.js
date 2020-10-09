@@ -40,7 +40,7 @@ const useStyles = makeStyles({
                     <DivRestName>{restName}</DivRestName>
                     <DivCategory>{restCategory}</DivCategory>
                     <Container>
-                        <DivDeli>{[restDeliveryTime - 10]} - {restDeliveryTime} min</DivDeli>
+                        <DivDeli>{restDeliveryTime - 10} - {restDeliveryTime} min</DivDeli>
                         <DivShipping>Frete R${restShipping},00</DivShipping>
                     </Container>
                     <DivAdress>{restAdress}</DivAdress>
