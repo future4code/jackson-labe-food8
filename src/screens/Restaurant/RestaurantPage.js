@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
-import { Hr, P, DivButton, Button } from '../../components/CardProduct/Styles';
+import { Hr, P } from '../../components/CardProduct/Styles';
 import CardProduct from '../../components/CardProduct/CardProduct';
 import CardRestaurant from '../../components/CardProduct/CardRestaurant'
 import { baseUrl } from '../../constants/urls';
-import { useProtectedPage } from '../../hooks/useProtection';
 import SimpleModal from './styled';
 import useForm from '../../hooks/useForm';
 
@@ -61,7 +60,6 @@ const RestaurantPage = () => {
         let newArray = [...allDetails,item];
         setAllDetails([...newArray]);
     };
-    
 
     const clickButtonCard = (qtd) =>{
         const element = document.getElementById('quantity')
@@ -77,35 +75,17 @@ const RestaurantPage = () => {
         resetState()
     };
 
-    const clickButtonRm = (item) =>{
+    const clickButtonRm = (itemId) =>{
         let array = JSON.parse(localStorage.getItem("all"))|| [];
         console.log("Item:", item)
         
         for(let i = 0; i <= array.length; i++){
-            if(array[i] && array[i].id && item === array[i].id){
+            if(array[i] && array[i].id && itemId === array[i].id){
                 array.splice(i, 2)
-                console.log("bateu aqui")
             }
         }
         console.log("array:", array)
         localStorage.setItem("all", JSON.stringify(array));
-    };
-
-    // const button = (it, details) =>{
-    //     const button = document.getElementById(it)
-    //     const infoButton = button.textContent;
-    //     if(infoButton === "Adicionar"){
-    //         button.innerText="Remover";
-    //         clickButtonAdd(details)
-    //     }
-    //     else{
-    //         button.innerText="Adicionar"
-    //         clickButtonRm(it)
-    //     }
-    // };
-
-    const clickCart = () =>{
-        
     };
 
     useEffect(()=>{
@@ -155,17 +135,6 @@ const RestaurantPage = () => {
                                             clickButtonRm={clickButtonRm}
                                         />
                                     )
-                                    // (
-                                    //     <div>
-                                    //         <div>
-                                    //             <img src={info.photoUrl}/>
-                                    //             <p>{info.name}</p>
-                                    //             <p>{info.description}</p>
-                                    //             <div>R${info.price}</div>
-                                    //             <button id={info.id} onClick={()=>button(info.id,info)}>Adicionar</button>
-                                    //         </div>
-                                    //     </div>
-                                    // )
                                 }
                             })}
                         </div>

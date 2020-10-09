@@ -39,20 +39,20 @@ const useStyles = makeStyles ({
   export default function CardProduct(props) {
     const classes = useStyles();
 
-    const button = (it, details) =>{
-        const button = document.getElementById(it)
-        const infoButton = button.textContent;
-        if(infoButton === "Adicionar"){
-            button.innerText="Remover"
-            props.clickButtonAdd(details)
-        }
-        else{
-            button.innerText="Adicionar"
-            props.clickButtonRm(it)
-        }
+    const button = (id, details) =>{
+      const button = document.getElementById(id)
+      const infoButton = button.textContent;
+      if(infoButton === "Adicionar"){
+          button.innerText="Remover"
+          props.clickButtonAdd(details)
+          console.log(id, details)
+      }
+      else{
+          button.innerText="Adicionar"
+          props.clickButtonRm(id)
+      }
     };
-    
-  
+      
     return (
         <Hug>
         <Card className={classes.root} borderRadius={8}>
