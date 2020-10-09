@@ -51,6 +51,24 @@ const RestaurantPage = () => {
       setFilteredCategories(filteredArray)
     };
 
+    const clickButtonAdd = (item) =>{
+        setVisibilityCard(!visibilityCard);
+        let newArray = [...allDetails,item];
+        setAllDetails([...newArray]);
+        localStorage.setItem("restaurantId", restaurant.id)
+    };
+  
+    const clickButtonRm = (itemId) =>{
+      let array = JSON.parse(localStorage.getItem("all"))|| [];
+      
+      for(let i = 0; i <= array.length; i++){
+          if(array[i] && array[i].id && itemId === array[i].id){
+              array.splice(i, 2)
+          }
+      }
+      localStorage.setItem("all", JSON.stringify(array));
+    };
+
     const clickButtonCard = (qtd) =>{
         const element = document.getElementById('quantity')
         const isValid = element.checkValidity()
@@ -108,6 +126,8 @@ const RestaurantPage = () => {
                                             idKey={info.id} 
                                             name={info.name}
                                             all={info}
+                                            clickButtonAdd={clickButtonAdd}
+                                            clickButtonRm={clickButtonRm}
                                         />
                                     )
                                 }
