@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import useForm from '../../hooks/useForm';
-import { Typography, TextField, MuiThemeProvider } from '@material-ui/core';
-import {theme} from '../../constants/theme';
+import { TextField} from '@material-ui/core';
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -23,12 +22,24 @@ function rand() {
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: 'absolute',
-      width: 230,
+      width: 328,
+      height: 216,
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 2, 3),
       outline: 0,
     },
+    title: {
+      fontSize: 16,
+      textAlign:"center",
+    },
+    text: {
+      fontSize: 16,
+      textAlign: "right",
+      color: "#5cb646",
+      fontWeight: 500,
+      height: 19,
+    }
   }));
 
   
@@ -37,19 +48,10 @@ function rand() {
     // getModalStyle is not a pure function, we roll the style only on the first render
     const [modalStyle] = useState(getModalStyle);
     const { form, handleInputChange, resetState } = useForm({quantity: ""})
-    // const [open, setOpen] = useState(false);
-  
-    // const handleOpen = () => {
-    //   setOpen(true);
-    // };
-  
-    // const handleClose = () => {
-    //   setOpen(false);
-    // };
   
     const body = (
       <div style={modalStyle} className={classes.paper}>
-        <h5 id="simple-modal-title">Selecione a quantidade desejada</h5>
+        <h5 className={classes.title}>Selecione a quantidade desejada</h5>
         <form id={"modal"}>
             <div>
                 <TextField 
@@ -65,16 +67,7 @@ function rand() {
                     min="1"
                 />
             </div>
-            <MuiThemeProvider theme={theme}>
-                <Typography 
-                    type="submit"
-                    color="primary"
-                    onClick={()=>props.click(form.quantity, resetState)}
-                >
-                    Adicionar ao carrinho
-                </Typography>
-            </MuiThemeProvider>
-
+            <p onClick={()=>props.click(form.quantity)} className={classes.text}>Adicionar ao carrinho</p>
         </form>
         <SimpleModal />
       </div>
@@ -82,9 +75,6 @@ function rand() {
   
     return (
       <div>
-        {/* <button type="button" onClick={handleOpen}>
-          Open Modal
-        </button> */}
         <Modal
           open={props.stateCard}
           onClose={()=>props.click(form.quantity)}
