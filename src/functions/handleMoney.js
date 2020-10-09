@@ -1,7 +1,7 @@
 const handleMoney = (number) => {
     const money = number.toFixed(2).replace('.',',')
-
-    return money
+    return `R$${money}`
 }
 
 export default handleMoney
+

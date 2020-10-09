@@ -97,7 +97,7 @@ const ProfilePage = () => {
                 <TextContainer>
                     <GreenTitle>{order.restaurantName}</GreenTitle>
                     <DetailText>{convertTimestampToDate(order.createdAt)}</DetailText>
-                    <BoldText>SUBTOTAL R${handleMoney(order.totalPrice)}</BoldText>
+                    <BoldText>SUBTOTAL {handleMoney(order.totalPrice)}</BoldText>
                 </TextContainer>
                 </OrderContainer>
                )
