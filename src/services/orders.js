@@ -19,3 +19,20 @@ export const getActiveOrder = (setNewState) => {
     })
 
 }
+
+export const placeOrder = (restaurantId, body) => {
+
+    axios.post(`${baseUrl}restaurants/${restaurantId}/order`, body, {
+        headers: {
+            auth: localStorage.getItem('token')
+        }
+    })
+
+    .then( (response) => {
+        alert("Parabéns! Você fez um pedido!")
+    })
+    .catch( (error) => {
+        alert("Erro!!")
+        console.log(error)
+    })
+}
