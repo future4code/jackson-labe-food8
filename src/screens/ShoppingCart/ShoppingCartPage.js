@@ -21,14 +21,14 @@ const ShoppingCartPage = (props) => {
     const pathParams = useParams();
     const [orderList, setOrderList] = useState()
 
-
-
-
     const requestPostOrder = () =>{
         const body = {
             products: pathParams.state
         }
     }
+
+    let array = JSON.parse(localStorage.getItem("all")) || []
+
 
 
     return (
@@ -39,7 +39,19 @@ const ShoppingCartPage = (props) => {
                 {user && <Info>{user.address}</Info>}
                 </TextContainer>
             </AddressInfoContainer>
+
+
             {!pathParams && <h5>Carrinho vazio</h5>}
+            
+            {array && array.map( (item) => {
+                return (
+                    <div>
+                        {item.name && <div>{item.name}</div> }
+                        {typeof item === "string" && <div>{item}</div>}
+                    </div>
+                )
+            })}
+
             <NavBar section={'shoppingCart'}/>
         </div>
     )

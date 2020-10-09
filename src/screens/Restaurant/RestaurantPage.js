@@ -84,7 +84,6 @@ const RestaurantPage = () => {
                 array.splice(i, 2)
             }
         }
-        console.log("array:", array)
         localStorage.setItem("all", JSON.stringify(array));
     };
 
